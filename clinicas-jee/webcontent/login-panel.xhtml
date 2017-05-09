@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+
+	<p:outputPanel styleClass="login-panel">
+		<h:form>
+			Login Panel<br />
+			
+			<p:commandButton 
+				value="Entrar" 
+				actionListener="#{loginController.login}" /><!-- update="growl" -->
+				
+			<img alt="Pessoa" src="img/person-icon.png" style="width: 70px;"></img>
+		</h:form>
+	</p:outputPanel>
+
+</ui:composition>
+</html>
