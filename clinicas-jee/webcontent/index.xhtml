@@ -2,12 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>Sistema Gerenciador de Clínicas Médicas</title>
 	<link rel="stylesheet" type="text/css" href="css/index.css" />
 </h:head>
 <body>
+
+	<p:growl id="growl" life="2000" />
 
 	<div id="header">
 		<img src="img/logo.png" alt="Logo" width="300" />
@@ -19,9 +22,9 @@
 		
 		</div>
 		
-		<div id="content-pane">
-			<h:outputText value="Applicacao inicio" />
-		</div>
+		<p:outputPanel id="content-pane">
+			<ui:include src="#{contentController.paginaAtual}" />
+		</p:outputPanel>
 	</div>
 	
 	<div id="footer">

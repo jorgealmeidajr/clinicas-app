@@ -6,15 +6,49 @@
 	xmlns:p="http://primefaces.org/ui">
 <ui:composition>
 
-	<p:outputPanel styleClass="login-panel">
-		<h:form>
-			Login Panel<br />
+	<p:outputPanel id="login-panel" styleClass="login-panel">
+		<!-- Formulario que sera renderizado se o usuario NAO logou na aplicacao -->
+		<h:form rendered="#{!loginController.usuarioLogado}" prependId="false">
+			<p:inputText 
+				id="email" 
+				value="#{loginController.email}" 
+				required="true" requiredMessage="O email é obrigatório!" 
+				label="Email"/>
+      <p:watermark for="email" value="Email" id="w1" />
+      
+      <p:inputText 
+      	id="senha" 
+      	value="#{loginController.senha}" 
+      	required="true" requiredMessage="A senha é obrigatória!" 
+      	label="Senha"
+      	style="margin-left: 5px;"/>
+      <p:watermark for="senha" value="Senha" id="w2" />
+			
+			<br />
 			
 			<p:commandButton 
 				value="Entrar" 
-				actionListener="#{loginController.login}" /><!-- update="growl" -->
-				
-			<img alt="Pessoa" src="img/person-icon.png" style="width: 70px;"></img>
+				actionListener="#{loginController.login}" 
+				style="margin-right: 33px;margin-top: 10px;float: right;"
+				update="login-panel, growl" />
+		</h:form>
+		
+		<!-- Formulario que sera renderizado quando o usuario logou -->
+		<h:form rendered="#{loginController.usuarioLogado}" prependId="false">
+			<span style="float: left;">
+				<h:outputText value="#{loginController.usuario.nome}" />
+				<br />
+				<h:outputText value="#{loginController.usuario.email}" />
+			</span>
+			
+			<div style="float: right;">
+				<img alt="Pessoa" src="img/person-icon.png" style="width: 70px;"></img>
+				<br />
+				<p:menuButton value="Acesso Usuário">
+					<p:menuitem value="Editar conta" />
+					<p:menuitem value="Sair" actionListener="#{loginController.logout()}" update="login-panel" />
+				</p:menuButton>
+			</div>
 		</h:form>
 	</p:outputPanel>
 

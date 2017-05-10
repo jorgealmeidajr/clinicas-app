@@ -3,9 +3,13 @@ package clinicas.controller;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import clinicas.model.Usuario;
+import clinicas.service.UsuarioService;
 
 @Named
 @SessionScoped
@@ -16,22 +20,33 @@ public class LoginController implements Serializable {
 	private String email;
 	private String senha;
 	
-	private Usuario usuarioLogado;
+	private Usuario usuario;
+	
+	@Inject
+	private UsuarioService usuarioService;
 	
 	public LoginController() {
 		System.out.println(">>login_controller criado");
 	}
 	
 	public void login() {
-		
+		try {
+			usuario = usuarioService.verificarLogin(email, senha);
+		} catch (Exception e) {
+			usuario = null;
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage(e.getMessage()));
+		}
 	}
 	
 	public void logout() {
-		usuarioLogado = null;
+		usuario = null;
+		email = "";
+		senha = "";
 	}
 	
 	public boolean isUsuarioLogado() {
-		return usuarioLogado != null;
+		return usuario != null;
 	}
 
 	public String getEmail() {
@@ -48,6 +63,10 @@ public class LoginController implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
 	}
 	
 }
