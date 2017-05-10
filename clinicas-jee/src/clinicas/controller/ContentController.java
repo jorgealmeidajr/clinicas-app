@@ -11,14 +11,20 @@ import javax.inject.Named;
 public class ContentController implements Serializable {
 
 	private static final long serialVersionUID = -2695167817323691842L;
-
-	private static final String PAGINA_INICIAL = "buscaMedicos.xhtml";
 	
 	private String paginaAtual;
 
 	@PostConstruct
 	public void init() {
-		paginaAtual = PAGINA_INICIAL;
+		exibirPaginaInicial();
+	}
+	
+	public void exibirPaginaInicial() {
+		paginaAtual = "buscar-medicos.xhtml";
+	}
+	
+	public void exibirListarMedicos() {
+		paginaAtual = "app/listar-medicos.xhtml";
 	}
 
 	public String getPaginaAtual() {

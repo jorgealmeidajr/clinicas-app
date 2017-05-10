@@ -18,9 +18,18 @@
 	</div>
 	
 	<div id="content">
-		<div id="menu">
-		
-		</div>
+		<p:outputPanel id="menu-panel">
+			<h:form>
+				<p:menu style="width: 100px;" rendered="#{loginController.usuarioLogado}">
+					<p:submenu label="Menu">
+						<p:menuitem 
+							value="Médicos" 
+							action="#{contentController.exibirListarMedicos()}"
+							update="content-pane" />
+					</p:submenu>
+				</p:menu>
+			</h:form>
+		</p:outputPanel>
 		
 		<p:outputPanel id="content-pane">
 			<ui:include src="#{contentController.paginaAtual}" />

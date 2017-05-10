@@ -30,7 +30,7 @@
 				value="Entrar" 
 				actionListener="#{loginController.login}" 
 				style="margin-right: 33px;margin-top: 10px;float: right;"
-				update="login-panel, growl" />
+				update="login-panel, menu-panel, growl" />
 		</h:form>
 		
 		<!-- Formulario que sera renderizado quando o usuario logou -->
@@ -46,7 +46,7 @@
 				<br />
 				<p:menuButton value="Acesso Usuário">
 					<p:menuitem value="Editar conta" />
-					<p:menuitem value="Sair" actionListener="#{loginController.logout()}" update="login-panel" />
+					<p:menuitem value="Sair" actionListener="#{loginController.logout()}" update="login-panel, menu-panel, content-pane" />
 				</p:menuButton>
 			</div>
 		</h:form>

@@ -23,6 +23,9 @@ public class LoginController implements Serializable {
 	private Usuario usuario;
 	
 	@Inject
+	private ContentController contentController;
+	
+	@Inject
 	private UsuarioService usuarioService;
 	
 	public LoginController() {
@@ -43,6 +46,7 @@ public class LoginController implements Serializable {
 		usuario = null;
 		email = "";
 		senha = "";
+		contentController.exibirPaginaInicial();
 	}
 	
 	public boolean isUsuarioLogado() {
