@@ -7,32 +7,30 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "usuario")
-public class Usuario implements Serializable {
+@Table(name = "medico")
+public class Medico implements Serializable {
 
-	private static final long serialVersionUID = 6718135367491557482L;
+	private static final long serialVersionUID = 4509841646079640760L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id_usuario")
+	@Column(name = "id_medico")
 	private Integer id;
 	
-	@Column(name = "nome_usuario", length = 255, nullable = false)
+	@Column(name = "nome_medico", length = 255, nullable = false)
 	private String nome;
 	
-	@Column(length = 255, nullable = false)
-	private String email;
-	
-	@Column(length = 255, nullable = false)
-	private String senha;
-	
-	@Lob
-	@Column(name = "foto_usuario")
+	@Column(name = "foto_medico")
 	private byte[] foto;
+	
+	@Column
+	private String telefone;
+	
+	@Column(name = "numero_crm")
+	private Integer numeroCrm;
 
 	public Integer getId() {
 		return id;
@@ -50,28 +48,28 @@ public class Usuario implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
 	public byte[] getFoto() {
 		return foto;
 	}
 
 	public void setFoto(byte[] foto) {
 		this.foto = foto;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public Integer getNumeroCrm() {
+		return numeroCrm;
+	}
+
+	public void setNumeroCrm(Integer numeroCrm) {
+		this.numeroCrm = numeroCrm;
 	}
 
 	@Override
@@ -90,7 +88,7 @@ public class Usuario implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Usuario other = (Usuario) obj;
+		Medico other = (Medico) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

@@ -7,32 +7,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "usuario")
-public class Usuario implements Serializable {
+@Table(name = "especialidade")
+public class Especialidade implements Serializable {
 
-	private static final long serialVersionUID = 6718135367491557482L;
+	private static final long serialVersionUID = -718574975193567615L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id_usuario")
+	@Column(name = "id_especialidade")
 	private Integer id;
 	
-	@Column(name = "nome_usuario", length = 255, nullable = false)
+	@Column(name = "nome_especialidade", length = 255, nullable = false)
 	private String nome;
-	
-	@Column(length = 255, nullable = false)
-	private String email;
-	
-	@Column(length = 255, nullable = false)
-	private String senha;
-	
-	@Lob
-	@Column(name = "foto_usuario")
-	private byte[] foto;
 
 	public Integer getId() {
 		return id;
@@ -48,30 +37,6 @@ public class Usuario implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public byte[] getFoto() {
-		return foto;
-	}
-
-	public void setFoto(byte[] foto) {
-		this.foto = foto;
 	}
 
 	@Override
@@ -90,7 +55,7 @@ public class Usuario implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Usuario other = (Usuario) obj;
+		Especialidade other = (Especialidade) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

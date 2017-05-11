@@ -7,32 +7,30 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "usuario")
-public class Usuario implements Serializable {
+@Table(name = "clinica")
+public class Clinica implements Serializable {
 
-	private static final long serialVersionUID = 6718135367491557482L;
+	private static final long serialVersionUID = -694779838693623304L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id_usuario")
+	@Column(name = "id_clinica")
 	private Integer id;
 	
-	@Column(name = "nome_usuario", length = 255, nullable = false)
-	private String nome;
+	@Column(name = "razao_social", length = 255, nullable = false)
+	private String razaoSocial;
 	
-	@Column(length = 255, nullable = false)
+	@Column
+	private Long cnpj;
+	
+	@Column
 	private String email;
 	
-	@Column(length = 255, nullable = false)
-	private String senha;
-	
-	@Lob
-	@Column(name = "foto_usuario")
-	private byte[] foto;
+	@Column
+	private String telefone;
 
 	public Integer getId() {
 		return id;
@@ -42,12 +40,20 @@ public class Usuario implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getRazaoSocial() {
+		return razaoSocial;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
+	}
+
+	public Long getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(Long cnpj) {
+		this.cnpj = cnpj;
 	}
 
 	public String getEmail() {
@@ -58,20 +64,12 @@ public class Usuario implements Serializable {
 		this.email = email;
 	}
 
-	public String getSenha() {
-		return senha;
+	public String getTelefone() {
+		return telefone;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public byte[] getFoto() {
-		return foto;
-	}
-
-	public void setFoto(byte[] foto) {
-		this.foto = foto;
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
 	@Override
@@ -90,7 +88,7 @@ public class Usuario implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Usuario other = (Usuario) obj;
+		Clinica other = (Clinica) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
