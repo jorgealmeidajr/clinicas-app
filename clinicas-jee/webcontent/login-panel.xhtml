@@ -16,7 +16,7 @@
 				label="Email"/>
       <p:watermark for="email" value="Email" id="w1" />
       
-      <p:inputText 
+      <p:password 
       	id="senha" 
       	value="#{loginController.senha}" 
       	required="true" requiredMessage="A senha é obrigatória!" 
@@ -30,7 +30,7 @@
 				value="Entrar" 
 				actionListener="#{loginController.login}" 
 				style="margin-right: 33px;margin-top: 10px;float: right;"
-				update="login-panel, menu-panel, growl" />
+				update="login-panel, menu-panel" />
 		</h:form>
 		
 		<!-- Formulario que sera renderizado quando o usuario logou -->

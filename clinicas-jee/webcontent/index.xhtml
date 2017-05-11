@@ -10,7 +10,7 @@
 </h:head>
 <body>
 
-	<p:growl id="growl" life="2000" />
+	<p:growl id="growl" life="3000" autoUpdate="true" />
 
 	<div id="header">
 		<img src="img/logo.png" alt="Logo" width="300" />
@@ -19,15 +19,24 @@
 	
 	<div id="content">
 		<p:outputPanel id="menu-panel">
-			<h:form>
-				<p:menu style="width: 100px;" rendered="#{loginController.usuarioLogado}">
-					<p:submenu label="Menu">
-						<p:menuitem 
-							value="Médicos" 
-							action="#{contentController.exibirListarMedicos()}"
-							update="content-pane" />
-					</p:submenu>
-				</p:menu>
+			<h:form rendered="#{loginController.usuarioLogado}">
+				<p:commandButton 
+					id="homeBtn"
+					value="Home"
+					action="#{contentController.exibirPaginaInicial()}"
+					update="content-pane"
+					style="width: 75px;height: 70px;font-size: 12px;">
+				</p:commandButton>
+				
+				<br />
+				
+				<p:commandButton 
+					id="medicosBtn"
+					value="Médicos"
+					action="#{contentController.exibirListarMedicos()}"
+					update="content-pane"
+					style="width: 75px;height: 70px;font-size: 12px;">
+				</p:commandButton>
 			</h:form>
 		</p:outputPanel>
 		
