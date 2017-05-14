@@ -13,7 +13,8 @@
 				id="email" 
 				value="#{loginController.email}" 
 				required="true" requiredMessage="O email é obrigatório!" 
-				label="Email"/>
+				label="Email" 
+				style="margin-top: 20px;" />
       <p:watermark for="email" value="Email" id="w1" />
       
       <p:password 
@@ -21,15 +22,22 @@
       	value="#{loginController.senha}" 
       	required="true" requiredMessage="A senha é obrigatória!" 
       	label="Senha"
-      	style="margin-left: 5px;"/>
+      	style="margin-left: 5px; margin-top: 20px;" />
       <p:watermark for="senha" value="Senha" id="w2" />
 			
 			<br />
 			
+			<p:commandLink 
+				actionListener="#{contentController.exibirCadastrarUsuario}"
+				update="content-pane"
+				immediate="true">
+        <h:outputText value="Quero me cadastrar" />
+    	</p:commandLink>
+			
 			<p:commandButton 
 				value="Entrar" 
 				actionListener="#{loginController.login}" 
-				style="margin-right: 33px;margin-top: 10px;float: right;"
+				style="margin-top: 10px; margin-left: 148px;"
 				update="login-panel, menu-panel" />
 		</h:form>
 		

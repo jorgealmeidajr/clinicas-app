@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +24,7 @@ public class Medico implements Serializable {
 	@Column(name = "nome_medico", length = 255, nullable = false)
 	private String nome;
 	
+	@Lob
 	@Column(name = "foto_medico")
 	private byte[] foto;
 	

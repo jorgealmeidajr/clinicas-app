@@ -23,8 +23,12 @@ public class ContentController implements Serializable {
 		paginaAtual = "buscar-medicos.xhtml";
 	}
 	
+	public void exibirCadastrarUsuario() {
+		paginaAtual = "cadastrar-usuario.xhtml";
+	}
+	
 	public void exibirListarMedicos() {
-		paginaAtual = "app/listar-medicos.xhtml";
+		paginaAtual = "app/medicos/listar-medicos.xhtml";
 	}
 
 	public String getPaginaAtual() {

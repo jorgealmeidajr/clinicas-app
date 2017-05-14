@@ -23,8 +23,8 @@ public class Clinica implements Serializable {
 	@Column(name = "razao_social", length = 255, nullable = false)
 	private String razaoSocial;
 	
-	@Column
-	private Long cnpj;
+//	@Column
+//	private String cnpj;
 	
 	@Column
 	private String email;
@@ -46,14 +46,6 @@ public class Clinica implements Serializable {
 
 	public void setRazaoSocial(String razaoSocial) {
 		this.razaoSocial = razaoSocial;
-	}
-
-	public Long getCnpj() {
-		return cnpj;
-	}
-
-	public void setCnpj(Long cnpj) {
-		this.cnpj = cnpj;
 	}
 
 	public String getEmail() {

@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	
+	<h:form id="frmUsuario" enctype="multipart/form-data">
+	
+		<p:panel header="Formulário de Cadastro de Usuário">
+			<div class="ui-g">
+		    <div class="ui-g-3"><h:outputText value="Nome : " /></div>
+		    <div class="ui-g-9"><p:inputText id="nome" value="#{usuarioController.usuario.nome}" /></div>
+			</div>
+		
+			<h:panelGrid columns="2" cellpadding="5">
+				<h:outputText value="Email : " />
+				<p:inputText id="email" value="#{usuarioController.usuario.email}"></p:inputText>
+				
+				<h:outputText value="Senha : " />
+				<p:password id="senha" value="#{usuarioController.usuario.senha}" required="true" match="confirmacao" />
+	    
+		    <h:outputText value="Confirmação de Senha : " />
+		    <p:password id="confirmacao" value="#{usuarioController.usuario.senha}" required="true" />
+			
+				<!-- <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/> -->
+				<p:commandButton 
+					value="Submit" 
+					disabled="true" /><!-- actionListener="#{fileUploadView.upload}" -->
+			</h:panelGrid>
+		</p:panel>
+		
+	</h:form>
+	
+</ui:composition>
+</html>
