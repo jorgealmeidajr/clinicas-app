@@ -33,10 +33,21 @@ public class LoginController implements Serializable {
 	}
 	
 	public void login() {
+		//TODO usar o GUAVA
+		if (email == null || email.isEmpty()) {
+			throw new IllegalArgumentException("O campo email é obrigatório.");
+		}
+		
+		if (senha == null || senha.isEmpty()) {
+			throw new IllegalArgumentException("O campo senha é obrigatório.");
+		}
+				
 		try {
 			usuario = usuarioService.verificarLogin(email, senha);
 		} catch (Exception e) {
 			usuario = null;
+			email = "";
+			senha = "";
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage(e.getMessage()));
 		}

@@ -1,45 +1,45 @@
 package clinicas.service;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
+import java.util.Optional;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.transaction.Transactional;
+
+import clinicas.dao.UsuarioDAO;
 import clinicas.model.Usuario;
+import clinicas.utils.CriptografiaUtils;
 
 @Named
 @ApplicationScoped
 public class UsuarioService {
+	
+	@Inject
+	private UsuarioDAO dao;
 
 	public Usuario verificarLogin(final String email, final String senha) {
-		if (email == null || email.isEmpty()) {
-			throw new IllegalArgumentException("O campo email é obrigatório.");
+		String senhaCriptografada = CriptografiaUtils.converterStringParaMD5(senha);
+		
+		Optional<Usuario> op = dao.findByEmailSenha(email, senhaCriptografada);
+		
+		if (!op.isPresent()) {
+			throw new IllegalArgumentException("Nao foi encontrado um usuario com o email e a senha informados.");
 		}
 		
-		if (senha == null || senha.isEmpty()) {
-			throw new IllegalArgumentException("O campo senha é obrigatório.");
-		}
-		
-		Usuario usuario = null;
-
-		try {
-			//email = email.toLowerCase().trim();
-//			Query q = em.createNamedQuery(Usuario.FIND_BY_EMAIL_SENHA);
-//			q.setParameter("email", email);
-//			q.setParameter("senha", stringParaMd5(senha));
-//			List<Usuario> retorno = q.getResultList();
-//
-//			if (retorno.size() == 1) {
-//				userFound = (Usuario) retorno.get(0);
-//			}
-
-			usuario = new Usuario();
-			usuario.setNome("Jorge Almeida Junior");
-			usuario.setEmail("jorge@gmail.com");
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return usuario;
+		return op.get();
+	}
+	
+	@Transactional
+	public void salvar(Usuario usuario) {
+		String senhaCriptografada = CriptografiaUtils.converterStringParaMD5(usuario.getSenha());
+		usuario.setSenha(senhaCriptografada);
+		dao.salvar(usuario);
+	}
+	
+	@Transactional
+	public void atualizar(Usuario usuario) {
+		dao.atualizar(usuario);
 	}
 	
 }

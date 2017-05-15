@@ -53,7 +53,7 @@
 				<img alt="Pessoa" src="img/person-icon.png" style="width: 70px;"></img>
 				<br />
 				<p:menuButton value="Acesso Usuário">
-					<p:menuitem value="Editar conta" />
+					<p:menuitem value="Editar conta" actionListener="#{usuarioController.editar()}" update="content-pane" />
 					<p:menuitem value="Sair" actionListener="#{loginController.logout()}" update="login-panel, menu-panel, content-pane" />
 				</p:menuButton>
 			</div>
