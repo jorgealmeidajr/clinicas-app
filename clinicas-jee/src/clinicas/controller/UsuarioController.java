@@ -9,6 +9,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.event.FileUploadEvent;
+
 import clinicas.model.Usuario;
 import clinicas.service.UsuarioService;
 
@@ -19,6 +21,7 @@ public class UsuarioController implements Serializable {
 	private static final long serialVersionUID = 8666699850926627315L;
 
 	private Usuario usuario;
+	private String senha;
 	
 	@Inject
 	private UsuarioService service;
@@ -35,6 +38,11 @@ public class UsuarioController implements Serializable {
 
 	public void salvar() {
 		try {
+			if (senha == null || senha.trim().isEmpty()) {
+				throw new IllegalArgumentException("O campo senha é obrigatório no cadastro de Usuário.");
+			}
+			
+			usuario.setSenha(senha.trim());
 			service.salvar(usuario);
 		} catch (Exception e) {
 			FacesContext context = FacesContext.getCurrentInstance();
@@ -44,15 +52,33 @@ public class UsuarioController implements Serializable {
 
 	public void editar() {
 		usuario = loginController.getUsuario();
+		senha = "";
 		contentController.exibirCadastrarUsuario();
 	}
 	
 	public void atualizar() {
-		service.atualizar(usuario);
+		service.atualizar(usuario, senha);
+	}
+	
+	public void handleImagemUpload(FileUploadEvent event) {		
+		// UploadedFile imagem = event.getFile();
+		byte[] bytesImagem = event.getFile().getContents();
+		usuario.setFoto(bytesImagem);
+		
+		FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 
 	public Usuario getUsuario() {
 		return usuario;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 }

@@ -34,11 +34,17 @@ public class UsuarioService {
 	public void salvar(Usuario usuario) {
 		String senhaCriptografada = CriptografiaUtils.converterStringParaMD5(usuario.getSenha());
 		usuario.setSenha(senhaCriptografada);
+		
 		dao.salvar(usuario);
 	}
 	
 	@Transactional
-	public void atualizar(Usuario usuario) {
+	public void atualizar(Usuario usuario, String novaSenha) {
+		if (novaSenha != null && !novaSenha.trim().isEmpty()) {
+			String senhaCriptografada = CriptografiaUtils.converterStringParaMD5(novaSenha);
+			usuario.setSenha(senhaCriptografada);
+		}
+		
 		dao.atualizar(usuario);
 	}
 	

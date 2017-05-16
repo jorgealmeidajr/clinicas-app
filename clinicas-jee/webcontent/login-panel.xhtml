@@ -14,7 +14,8 @@
 				value="#{loginController.email}" 
 				required="true" requiredMessage="O email é obrigatório!" 
 				label="Email" 
-				style="margin-top: 20px;" />
+				style="margin-top: 20px;" 
+				validator="emailValidator" />
       <p:watermark for="email" value="Email" id="w1" />
       
       <p:password 
@@ -50,7 +51,14 @@
 			</span>
 			
 			<div style="float: right;">
-				<img alt="Pessoa" src="img/person-icon.png" style="width: 70px;"></img>
+				<h:graphicImage value="img/person-icon.png" rendered="#{loginController.usuario.foto == null}" style="width: 70px;" />
+				
+				<p:graphicImage
+					value="#{loginController.foto}"
+					rendered="#{loginController.usuario.foto != null}"
+					style="width: 70px;">
+				</p:graphicImage>
+				
 				<br />
 				<p:menuButton value="Acesso Usuário">
 					<p:menuitem value="Editar conta" actionListener="#{usuarioController.editar()}" update="content-pane" />

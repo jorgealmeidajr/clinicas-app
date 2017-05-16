@@ -13,32 +13,50 @@
 			<div class="ui-g">
 		    <div class="ui-g-2"><h:outputText value="Nome : " /></div>
 		    <div class="ui-g-9">
-		    	<p:inputText id="nome" value="#{usuarioController.usuario.nome}" />
+		    	<p:inputText 
+		    		id="nome" 
+		    		value="#{usuarioController.usuario.nome}"
+		    		required="true" requiredMessage="O nome é obrigatório!" 
+		    		style="width: 300px;" />
 		    </div>
 			</div>
 		
 			<div class="ui-g">
 				<div class="ui-g-2"><h:outputText value="Email : " /></div>
 				<div class="ui-g-9">
-					<p:inputText id="email" value="#{usuarioController.usuario.email}"></p:inputText>
+					<p:inputText 
+						id="email" 
+						value="#{usuarioController.usuario.email}" 
+						required="true" requiredMessage="O email é obrigatório!"
+						style="width: 300px;" 
+						validator="emailValidator" />
 				</div>
 			</div>
 			
-			<div class="ui-g">	
+			<div class="ui-g">
 				<div class="ui-g-2"><h:outputText value="Senha : " /></div>
 				<div class="ui-g-4">
-					<p:password id="senha" value="#{usuarioController.usuario.senha}" required="true" match="confirmacao" 
-						rendered="#{usuarioController.usuario.id == null}" />
+					<p:password 
+						id="senha" 
+						value="#{usuarioController.senha}" 
+						match="confirmacao" />
 				</div>
 				
 				<div class="ui-g-2"><h:outputText value="Confirmação : " /></div>
 		    <div class="ui-g-4">
-		    	<p:password id="confirmacao" value="#{usuarioController.usuario.senha}" required="true" 
-		    		rendered="#{usuarioController.usuario.id == null}" />
+		    	<p:password id="confirmacao" value="#{usuarioController.senha}" />
 		    </div>
 	    </div>
 	    
-			<!-- <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/> -->
+			<p:fileUpload 
+				fileUploadListener="#{usuarioController.handleImagemUpload}" 
+				mode="advanced" 
+				dragDropSupport="false"
+        sizeLimit="100000" 
+        fileLimit="1" 
+        allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
+        label="Escolher" uploadLabel="Enviar" cancelLabel="Cancelar"
+        invalidFileMessage="São permitidas somente imagens (gif, jpeg, jpg e png)" />
 				
 			<div class="ui-g" style="width: 700px;">
 				<p:commandButton 
