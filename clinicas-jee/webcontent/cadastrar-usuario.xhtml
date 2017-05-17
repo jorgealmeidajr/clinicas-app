@@ -67,7 +67,8 @@
 				<p:commandButton 
 					value="Atualizar" 
 					action="#{usuarioController.atualizar}" 
-					rendered="#{usuarioController.usuario.id != null}" />
+					rendered="#{usuarioController.usuario.id != null}" 
+					update="login-panel" />
 			</div>
 		</div>
 		
