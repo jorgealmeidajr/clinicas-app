@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +26,9 @@ public class Medico implements Serializable {
 	@Column(name = "nome_medico", length = 255, nullable = false)
 	private String nome;
 	
+	@Column(length = 55)
+	private String cpf;
+	
 	@Lob
 	@Column(name = "foto_medico")
 	private byte[] foto;
@@ -33,6 +38,14 @@ public class Medico implements Serializable {
 	
 	@Column(name = "numero_crm")
 	private Integer numeroCrm;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_estado_crm", referencedColumnName = "id_estado")
+	private Estado estadoCrm;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_especialidade", referencedColumnName = "id_especialidade")
+	private Especialidade especialidade;
 
 	public Integer getId() {
 		return id;
@@ -72,6 +85,30 @@ public class Medico implements Serializable {
 
 	public void setNumeroCrm(Integer numeroCrm) {
 		this.numeroCrm = numeroCrm;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public Estado getEstadoCrm() {
+		return estadoCrm;
+	}
+
+	public void setEstadoCrm(Estado estadoCrm) {
+		this.estadoCrm = estadoCrm;
+	}
+
+	public Especialidade getEspecialidade() {
+		return especialidade;
+	}
+
+	public void setEspecialidade(Especialidade especialidade) {
+		this.especialidade = especialidade;
 	}
 
 	@Override

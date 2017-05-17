@@ -2,8 +2,87 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 <ui:composition>
-	app/medicos/listar-medicos.xhtml
+
+<div>
+	<div style="height:50px; width:100%; background-color: purple;">
+		<span style="color: white;">Listagem de Médicos</span>
+	</div>
+	
+	<h:form>
+		<div style="width:900px; background-color: aqua; margin-left: auto; margin-right: auto;">
+			<div class="ui-g">
+		    <div class="ui-g-2"><span class="label">Nome : </span></div>
+		    <div class="ui-g-4">
+		    	<p:inputText value="#{medicoController.parametrosBusca.nome}" style="width: 226px;" />
+		    </div>
+		    
+		    <div class="ui-g-2"><span class="label">CPF : </span></div>
+		    <div class="ui-g-4">
+		    	<p:inputText value="#{medicoController.parametrosBusca.cpf}" style="width: 226px;" />
+		    </div>
+			</div>
+			
+			<div class="ui-g">
+		    <div class="ui-g-2"><span class="label">Estado CRM : </span></div>
+		    <div class="ui-g-4">
+		    	<p:selectOneMenu value="#{medicoController.parametrosBusca.estadoCrm}" style="width: 200px;">
+            <f:selectItem itemLabel="Select One" itemValue="" />
+            <f:selectItems value="#{medicoController.estados}" />
+        	</p:selectOneMenu>
+		    </div>
+		    
+		    <div class="ui-g-2"><span class="label">Especialidade : </span></div>
+		    <div class="ui-g-4">
+		    	<p:selectOneMenu value="#{medicoController.parametrosBusca.especialidade}" style="width: 200px;">
+            <f:selectItem itemLabel="Select One" itemValue="" />
+            <f:selectItems value="#{medicoController.especialidades}" />
+        	</p:selectOneMenu>
+		    </div>
+			</div>
+			
+			<div class="ui-g">
+				<div class="ui-g-8"></div>
+				
+				<div class="ui-g-4">
+					<p:commandButton 
+						value="Limpar" 
+						actionListener="#{medicoController.limparBusca}" 
+						update="medicos" />
+					<!-- style="margin-top: 10px; margin-left: 148px;" -->
+						
+					<p:commandButton 
+						value="Cadastrar" 
+						actionListener="#{medicoController.iniciarCadastro}" />
+					<!-- update="medicos" style="margin-top: 10px; margin-left: 148px;" -->
+				</div>
+			</div>
+		</div>
+	</h:form>
+
+	<p:dataTable id="medicos" value="#{medicoController.medicos}" var="m" scrollable="true" scrollHeight="188">
+		<p:column headerText="Nome">
+			<h:outputText value="#{m.nome}" />
+		</p:column>
+		<p:column headerText="CPF" width="150" resizable="false">
+			<h:outputText value="#{m.cpf}" />
+		</p:column>
+		<p:column headerText="Especialidade" width="200">
+			<h:outputText value="#{m.especialidade.nome}" />
+		</p:column>
+		<p:column headerText="Telefone" width="150" resizable="false">
+			<h:outputText value="#{m.telefone}" />
+		</p:column>
+		<p:column headerText="Foto" width="150" resizable="false">
+			
+		</p:column>
+		<p:column headerText="" width="80" resizable="false">
+			
+		</p:column>
+	</p:dataTable>
+</div>
+
 </ui:composition>
 </html>
