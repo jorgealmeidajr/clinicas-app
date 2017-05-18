@@ -28,17 +28,15 @@
 			<div class="ui-g">
 		    <div class="ui-g-2"><span class="label">Estado CRM : </span></div>
 		    <div class="ui-g-4">
-		    	<p:selectOneMenu value="#{medicoController.parametrosBusca.estadoCrm}" style="width: 200px;">
-            <f:selectItem itemLabel="Select One" itemValue="" />
-            <f:selectItems value="#{medicoController.estados}" />
+		    	<p:selectOneMenu value="#{medicoController.parametrosBusca.estadoCrm.id}" style="width: 200px;">
+            <f:selectItems value="#{medicoController.estados}" var="e" itemLabel="#{e.nome}" itemValue="#{e.id}" />
         	</p:selectOneMenu>
 		    </div>
 		    
 		    <div class="ui-g-2"><span class="label">Especialidade : </span></div>
 		    <div class="ui-g-4">
-		    	<p:selectOneMenu value="#{medicoController.parametrosBusca.especialidade}" style="width: 200px;">
-            <f:selectItem itemLabel="Select One" itemValue="" />
-            <f:selectItems value="#{medicoController.especialidades}" />
+		    	<p:selectOneMenu value="#{medicoController.parametrosBusca.especialidade.id}" style="width: 200px;">
+            <f:selectItems value="#{medicoController.especialidades}" var="e" itemLabel="#{e.nome}" itemValue="#{e.id}" />
         	</p:selectOneMenu>
 		    </div>
 			</div>
@@ -50,12 +48,15 @@
 					<p:commandButton 
 						value="Limpar" 
 						actionListener="#{medicoController.limparBusca}" 
-						update="medicos" />
+						update="@form, medicos" />
 					<!-- style="margin-top: 10px; margin-left: 148px;" -->
 						
 					<p:commandButton 
 						value="Cadastrar" 
-						actionListener="#{medicoController.iniciarCadastro}" />
+						actionListener="#{medicoController.iniciarCadastro}"
+						immediate="true"
+						update="dialogForm"
+						oncomplete="PF('cadastroDialog').show();" />
 					<!-- update="medicos" style="margin-top: 10px; margin-left: 148px;" -->
 				</div>
 			</div>
@@ -82,6 +83,25 @@
 			
 		</p:column>
 	</p:dataTable>
+	
+	<p:dialog 
+		id="cadastroDialog" 
+		widgetVar="cadastroDialog" 
+		resizable="false" draggable="false" modal="true" width="500" 
+		showEffect="clip" hideEffect="fold">
+		<h:form id="dialogForm" prependId="false">
+			<h:panelGrid columns="2" cellpadding="4">
+      	<h:outputText value="Id:" />
+        <h:outputText value="#{medicoController.entidadeCadastro.nome}" />
+      </h:panelGrid>
+      <p:commandButton 
+      	id="saveButton" 
+      	value="Salvar" 
+      	actionListener="#{medicoController.salvar}" 
+      	icon="ui-icon-search" />
+		</h:form>
+	</p:dialog>
+	
 </div>
 
 </ui:composition>
