@@ -55,18 +55,35 @@
 						value="Cadastrar" 
 						actionListener="#{medicoController.iniciarCadastro}"
 						immediate="true"
-						update="dialogForm"
-						oncomplete="PF('cadastroDialog').show();" />
+						update="cadMedicoForm"
+						oncomplete="PF('cadMedicoDialog').show();" />
 					<!-- update="medicos" style="margin-top: 10px; margin-left: 148px;" -->
 				</div>
 			</div>
 		</div>
 	</h:form>
 
-	<p:dataTable id="medicos" value="#{medicoController.medicos}" var="m" scrollable="true" scrollHeight="188">
-		<p:column headerText="Nome">
-			<h:outputText value="#{m.nome}" />
+	<h:form prependId="false">
+	<p:dataTable 
+		id="medicos" 
+		value="#{medicoController.medicos}" var="m" 
+		scrollable="true" scrollHeight="188"
+		editable="true">
+		
+		<p:ajax event="rowEdit" listener="#{medicoController.onRowEdit}" /><!-- update=":form:msgs" -->
+    <p:ajax event="rowEditCancel" listener="#{medicoController.onRowCancel}" />
+		
+		<p:column headerText="Foto" width="150" resizable="false">
+			
 		</p:column>
+		
+		<p:column headerText="Nome">
+			<p:cellEditor>
+				<f:facet name="output"><h:outputText value="#{m.nome}" /></f:facet>
+				<f:facet name="input"><p:inputText value="#{m.nome}" style="width:100%" label="Nome"/></f:facet>
+			</p:cellEditor>
+		</p:column>
+		
 		<p:column headerText="CPF" width="150" resizable="false">
 			<h:outputText value="#{m.cpf}" />
 		</p:column>
@@ -76,33 +93,21 @@
 		<p:column headerText="Telefone" width="150" resizable="false">
 			<h:outputText value="#{m.telefone}" />
 		</p:column>
-		<p:column headerText="Foto" width="150" resizable="false">
-			
+		
+		<p:column headerText="" width="70" resizable="false">
+			<p:commandButton update="cadMedicoForm" oncomplete="PF('cadMedicoDialog').show();" icon="ui-icon-search">
+				<f:setPropertyActionListener value="#{m}" target="#{medicoController.entidadeCadastro}" />
+			</p:commandButton>
 		</p:column>
-		<p:column headerText="" width="80" resizable="false">
-			
+		
+		<p:column style="width:45px">
+			<p:rowEditor />
 		</p:column>
 	</p:dataTable>
-	
-	<p:dialog 
-		id="cadastroDialog" 
-		widgetVar="cadastroDialog" 
-		resizable="false" draggable="false" modal="true" width="500" 
-		showEffect="clip" hideEffect="fold">
-		<h:form id="dialogForm" prependId="false">
-			<h:panelGrid columns="2" cellpadding="4">
-      	<h:outputText value="Id:" />
-        <h:outputText value="#{medicoController.entidadeCadastro.nome}" />
-      </h:panelGrid>
-      <p:commandButton 
-      	id="saveButton" 
-      	value="Salvar" 
-      	actionListener="#{medicoController.salvar}" 
-      	icon="ui-icon-search" />
-		</h:form>
-	</p:dialog>
-	
+	</h:form>	
 </div>
+
+<ui:include src="cadastrar-medico.xhtml"></ui:include>
 
 </ui:composition>
 </html>

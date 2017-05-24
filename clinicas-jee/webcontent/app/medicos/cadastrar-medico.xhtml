@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<p:dialog 
+		id="cadMedicoDialog" 
+		widgetVar="cadMedicoDialog" 
+		resizable="false" draggable="false" modal="true" width="550" 
+		showEffect="clip" hideEffect="fold">
+		
+		<h:form id="cadMedicoForm">
+			<div class="ui-g">
+		    <div class="ui-g-4"><span class="label">Nome : </span></div>
+		    <div class="ui-g-8">
+		    	<p:inputText value="#{medicoController.entidadeCadastro.nome}" style="width: 226px;" />
+		    </div>
+		  </div>
+		  
+		  <div class="ui-g">
+		  	<div class="ui-g-4"><span class="label">Especialidade : </span></div>
+		    <div class="ui-g-8">
+		    	<p:selectOneMenu value="#{medicoController.entidadeCadastro.especialidade.id}" style="width: 200px;">
+            <f:selectItems value="#{medicoController.especialidades}" var="e" itemLabel="#{e.nome}" itemValue="#{e.id}" />
+        	</p:selectOneMenu>
+		    </div>
+		  </div>
+
+			<div class="ui-g">
+		    <div class="ui-g-4"><span class="label">CPF : </span></div>
+		    <div class="ui-g-8">
+		    	<p:inputText value="#{medicoController.entidadeCadastro.cpf}" style="width: 226px;" />
+		    </div>
+		  </div>
+		  
+		  <div class="ui-g">
+		    <div class="ui-g-4"><span class="label">Telefone : </span></div>
+		    <div class="ui-g-8">
+		    	<p:inputText value="#{medicoController.entidadeCadastro.telefone}" style="width: 226px;" />
+		    </div>
+		  </div>
+		  
+		  <div class="ui-g">
+		    <div class="ui-g-4"><span class="label">Número CRM : </span></div>
+		    <div class="ui-g-8">
+		    	<p:inputText value="#{medicoController.entidadeCadastro.numeroCrm}" style="width: 226px;" />
+		    </div>
+		  </div>
+		  
+		  <div class="ui-g">
+		  	<div class="ui-g-4"><span class="label">Estado CRM : </span></div>
+		    <div class="ui-g-8">
+		    	<p:selectOneMenu value="#{medicoController.entidadeCadastro.estadoCrm.id}" style="width: 200px;">
+            <f:selectItems value="#{medicoController.estados}" var="e" itemLabel="#{e.nome}" itemValue="#{e.id}" />
+        	</p:selectOneMenu>
+		    </div>
+		  </div>
+      
+      <p:commandButton 
+      	id="saveButton" 
+      	value="Salvar" 
+      	actionListener="#{medicoController.salvar}" 
+      	icon="ui-icon-search" />
+      	
+      <p:commandButton value="Cancelar" icon="ui-icon-closethick" />
+		</h:form>
+		
+	</p:dialog>
+</ui:composition>
+</html>

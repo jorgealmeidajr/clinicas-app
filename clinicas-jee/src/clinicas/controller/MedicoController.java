@@ -9,11 +9,15 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
+
 import clinicas.dao.EspecialidadeDAO;
 import clinicas.dao.EstadoDAO;
 import clinicas.model.Especialidade;
 import clinicas.model.Estado;
 import clinicas.model.Medico;
+import clinicas.service.MedicoService;
 
 @Named
 @ViewScoped
@@ -30,6 +34,9 @@ public class MedicoController implements Serializable {
 	private List<Especialidade> especialidades;
 	
 	@Inject
+	private MedicoService service;
+	
+	@Inject
 	private EstadoDAO estadoDao;
 	@Inject
 	private EspecialidadeDAO especialidadeDao;
@@ -38,7 +45,9 @@ public class MedicoController implements Serializable {
 	public void init() {
 		iniciarParametrosBusca();
 		
-		medicos = new ArrayList<>();
+		iniciarCadastro();
+		
+		medicos = service.listar();
 		
 		iniciarEstados();
 		
@@ -76,7 +85,7 @@ public class MedicoController implements Serializable {
 	}
 	
 	public void pesquisar() {
-		
+		medicos = service.listar();
 	}
 	
 	public void limparBusca() {
@@ -85,18 +94,30 @@ public class MedicoController implements Serializable {
 	
 	public void iniciarCadastro() {
 		entidadeCadastro = new Medico();
-		entidadeCadastro.setNome("teste...");
 		entidadeCadastro.setEspecialidade(new Especialidade());
 		entidadeCadastro.setEstadoCrm(new Estado());
 	}
 	
 	public void salvar() {
+		service.salvar(entidadeCadastro);
 		
-		
+		pesquisar();
 	}
 	
 	public void atualizar() {
 		
+	}
+	
+	public void onRowEdit(RowEditEvent event) {
+		System.out.println(((Medico) event.getObject()).getNome());
+	}
+	
+	public void onRowCancel(RowEditEvent event) {
+		System.out.println("on row cancel");
+	}
+	
+	public void onCellEdit(CellEditEvent event) {
+		System.out.println("on cell edit");
 	}
 
 	public Medico getEntidadeCadastro() {
