@@ -35,9 +35,20 @@
 		    
 		    <div class="ui-g-2"><span class="label">Especialidade : </span></div>
 		    <div class="ui-g-4">
-		    	<p:selectOneMenu value="#{medicoController.parametrosBusca.especialidade.id}" style="width: 200px;">
+		    	<p:autoComplete 
+		    		minQueryLength="2" queryDelay="500"
+		    		dropdown="true" forceSelection="true"
+		    		value="#{medicoController.parametrosBusca.especialidade.id}" 
+		    		completeMethod="#{medicoController.completeEspecialidades}"
+		    		var="e" itemLabel="#{e.nome}" itemValue="#{e.id}"
+		    		scrollHeight="200">
+		    		<p:column>
+							<h:outputText value="#{e.nome}" />
+						</p:column>
+		    	</p:autoComplete>
+		    	<!-- <p:selectOneMenu value="#{medicoController.parametrosBusca.especialidade.id}" style="width: 200px;">
             <f:selectItems value="#{medicoController.especialidades}" var="e" itemLabel="#{e.nome}" itemValue="#{e.id}" />
-        	</p:selectOneMenu>
+        	</p:selectOneMenu> -->
 		    </div>
 			</div>
 			

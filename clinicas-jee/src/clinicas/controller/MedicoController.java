@@ -3,6 +3,7 @@ package clinicas.controller;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -105,11 +106,15 @@ public class MedicoController implements Serializable {
 	}
 	
 	public void atualizar() {
+		service.atualizar(entidadeCadastro);
 		
+		pesquisar();
 	}
 	
 	public void onRowEdit(RowEditEvent event) {
-		System.out.println(((Medico) event.getObject()).getNome());
+		Medico medico = (Medico) event.getObject();
+		
+		service.atualizar(medico);
 	}
 	
 	public void onRowCancel(RowEditEvent event) {
@@ -118,6 +123,14 @@ public class MedicoController implements Serializable {
 	
 	public void onCellEdit(CellEditEvent event) {
 		System.out.println("on cell edit");
+	}
+	
+	public List<Especialidade> completeEspecialidades(String nomeEspecialidade) {
+		final String nome = nomeEspecialidade.trim().toLowerCase();
+		
+		return especialidades.stream()
+							 .filter(e -> e.getNome().toLowerCase().contains(nome))
+							 .collect(Collectors.toList());
 	}
 
 	public Medico getEntidadeCadastro() {

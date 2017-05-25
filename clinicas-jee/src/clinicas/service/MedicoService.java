@@ -24,4 +24,9 @@ public class MedicoService {
 		dao.salvar(medico);
 	}
 	
+	@Transactional
+	public void atualizar(Medico medico) {
+		dao.atualizar(medico);
+	}
+	
 }

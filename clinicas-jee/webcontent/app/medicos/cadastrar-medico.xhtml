@@ -31,21 +31,22 @@
 			<div class="ui-g">
 		    <div class="ui-g-4"><span class="label">CPF : </span></div>
 		    <div class="ui-g-8">
-		    	<p:inputText value="#{medicoController.entidadeCadastro.cpf}" style="width: 226px;" />
+		    	<p:inputMask value="#{medicoController.entidadeCadastro.cpf}" style="width: 226px;" mask="999.999.999-99" />
 		    </div>
 		  </div>
 		  
 		  <div class="ui-g">
 		    <div class="ui-g-4"><span class="label">Telefone : </span></div>
 		    <div class="ui-g-8">
-		    	<p:inputText value="#{medicoController.entidadeCadastro.telefone}" style="width: 226px;" />
+		    	<p:inputMask value="#{medicoController.entidadeCadastro.telefone}" style="width: 226px;" mask="(99)9999-9999" />
 		    </div>
 		  </div>
 		  
 		  <div class="ui-g">
 		    <div class="ui-g-4"><span class="label">Número CRM : </span></div>
 		    <div class="ui-g-8">
-		    	<p:inputText value="#{medicoController.entidadeCadastro.numeroCrm}" style="width: 226px;" />
+		    	<p:inputNumber value="#{medicoController.entidadeCadastro.numeroCrm}" style="width: 226px;"
+		    		minValue="0" maxValue="9999" />
 		    </div>
 		  </div>
 		  
@@ -58,13 +59,23 @@
 		    </div>
 		  </div>
       
-      <p:commandButton 
-      	id="saveButton" 
+      <p:commandButton  
       	value="Salvar" 
       	actionListener="#{medicoController.salvar}" 
-      	icon="ui-icon-search" />
+      	icon="ui-icon-disk"
+      	rendered="#{medicoController.entidadeCadastro.id == null}"
+      	oncomplete="PF('cadMedicoDialog').hide();"
+      	update="medicos" />
       	
-      <p:commandButton value="Cancelar" icon="ui-icon-closethick" />
+      <p:commandButton  
+      	value="Atualizar" 
+      	actionListener="#{medicoController.atualizar}" 
+      	icon="ui-icon-disk"
+      	rendered="#{medicoController.entidadeCadastro.id != null}"
+      	oncomplete="PF('cadMedicoDialog').hide();"
+      	update="medicos" />
+      	
+      <p:commandButton value="Cancelar" icon="ui-icon-closethick" onclick="PF('cadMedicoDialog').hide();" />
 		</h:form>
 		
 	</p:dialog>
