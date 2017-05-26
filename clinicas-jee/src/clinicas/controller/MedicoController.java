@@ -61,6 +61,8 @@ public class MedicoController implements Serializable {
 
 	private void iniciarParametrosBusca() {
 		parametrosBusca = new Medico();
+		parametrosBusca.setNome("");
+		parametrosBusca.setCpf("");
 		parametrosBusca.setEspecialidade(new Especialidade());
 		parametrosBusca.setEstadoCrm(new Estado());
 	}
@@ -86,11 +88,19 @@ public class MedicoController implements Serializable {
 	}
 	
 	public void pesquisar() {
-		medicos = service.listar();
+		if(parametrosBusca.getEspecialidade() == null)
+			parametrosBusca.setEspecialidade(new Especialidade());
+		
+		if(parametrosBusca.getEstadoCrm().getId() != null && parametrosBusca.getEstadoCrm().getId() == -1)
+			parametrosBusca.getEstadoCrm().setId(null);
+		
+		medicos = service.listar(parametrosBusca);
 	}
 	
 	public void limparBusca() {
 		iniciarParametrosBusca();
+		
+		pesquisar();
 	}
 	
 	public void iniciarCadastro() {
@@ -107,6 +117,12 @@ public class MedicoController implements Serializable {
 	
 	public void atualizar() {
 		service.atualizar(entidadeCadastro);
+		
+		pesquisar();
+	}
+	
+	public void excluir(Medico medico) {
+		service.excluir(medico);
 		
 		pesquisar();
 	}

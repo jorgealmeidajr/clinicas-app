@@ -16,4 +16,9 @@ public abstract class GenericDAO<E> {
 		em.merge(entity);
 	}
 	
+	public void remover(E entity) {
+		E entityToRemove = em.merge(entity);
+		em.remove(entityToRemove);
+	}
+	
 }

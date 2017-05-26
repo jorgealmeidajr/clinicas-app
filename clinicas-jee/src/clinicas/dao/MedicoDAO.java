@@ -14,6 +14,8 @@ public class MedicoDAO extends GenericDAO<Medico> {
 		TypedQuery<Medico> q = em.createQuery(
 			  "select m "
 			+ "from Medico m "
+			+ "left join fetch m.especialidade "
+			+ "left join fetch m.estadoCrm "
 			+ "order by m.nome", Medico.class);
 		
 		return q.getResultList();

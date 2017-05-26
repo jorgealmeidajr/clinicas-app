@@ -61,7 +61,12 @@
 						actionListener="#{medicoController.limparBusca}" 
 						update="@form, medicos" />
 					<!-- style="margin-top: 10px; margin-left: 148px;" -->
-						
+					
+					<p:commandButton 
+						value="Pesquisar" 
+						actionListener="#{medicoController.pesquisar}" 
+						update="medicos" />
+					
 					<p:commandButton 
 						value="Cadastrar" 
 						actionListener="#{medicoController.iniciarCadastro}"
@@ -109,14 +114,26 @@
 			<p:commandButton update="cadMedicoForm" oncomplete="PF('cadMedicoDialog').show();" icon="ui-icon-search">
 				<f:setPropertyActionListener value="#{m}" target="#{medicoController.entidadeCadastro}" />
 			</p:commandButton>
+			
+			<p:commandButton update="medicos" actionListener="#{medicoController.excluir(m)}" icon="ui-icon-circle-close">
+				<p:confirm header="Exclusão do Médico" message="Deseja mesmo remover o médico #{m.nome}?" icon="ui-icon-alert" />
+			</p:commandButton>
 		</p:column>
 		
 		<p:column style="width:45px">
 			<p:rowEditor />
 		</p:column>
 	</p:dataTable>
+	
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="false">
+		<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	</p:confirmDialog>
+	
 	</h:form>	
 </div>
+
+
 
 <ui:include src="cadastrar-medico.xhtml"></ui:include>
 
