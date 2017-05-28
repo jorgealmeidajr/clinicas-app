@@ -39,7 +39,8 @@
 				value="Entrar" 
 				actionListener="#{loginController.login}" 
 				style="margin-top: 10px; margin-left: 148px;"
-				update="login-panel, menu-panel" />
+				update="login-panel, menu-panel"
+				oncomplete="indexController.doAfterTryLogin();" />
 		</h:form>
 		
 		<!-- Formulario que sera renderizado quando o usuario logou -->

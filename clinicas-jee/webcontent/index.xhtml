@@ -6,6 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>Sistema Gerenciador de Clínicas Médicas</title>
+	<script type="text/javascript" src="js/index.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/index.css" />
 </h:head>
 <body>
@@ -18,14 +19,14 @@
 	</div>
 	
 	<div id="content">
-		<p:outputPanel id="menu-panel">
+		<p:outputPanel id="menu-panel" styleClass="hide-menu-panel">
 			<h:form rendered="#{loginController.usuarioLogado}">
 				<p:commandButton 
 					id="homeBtn"
 					value="Home"
 					action="#{contentController.exibirPaginaInicial()}"
 					update="content-pane"
-					style="width: 75px;height: 70px;font-size: 12px;">
+					styleClass="menu-panel-btn home-icon">
 				</p:commandButton>
 				
 				<br />
@@ -35,7 +36,21 @@
 					value="Médicos"
 					action="#{contentController.exibirListarMedicos()}"
 					update="content-pane"
-					style="width: 75px;height: 70px;font-size: 12px;">
+					styleClass="menu-panel-btn">
+				</p:commandButton>
+				
+				<br />
+				
+				<p:commandButton 
+					value="Clínicas"
+					styleClass="menu-panel-btn clinicas-icon">
+				</p:commandButton>
+				
+				<br />
+				
+				<p:commandButton 
+					value="Agenda"
+					styleClass="menu-panel-btn">
 				</p:commandButton>
 			</h:form>
 		</p:outputPanel>
