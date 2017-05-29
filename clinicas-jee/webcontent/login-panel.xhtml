@@ -31,14 +31,15 @@
 			<p:commandLink 
 				actionListener="#{contentController.exibirCadastrarUsuario}"
 				update="content-pane"
-				immediate="true">
+				immediate="true"
+				styleClass="login-cadastrar-link">
         <h:outputText value="Quero me cadastrar" />
     	</p:commandLink>
 			
 			<p:commandButton 
 				value="Entrar" 
 				actionListener="#{loginController.login}" 
-				style="margin-top: 10px; margin-left: 148px;"
+				styleClass="login-entrar-btn"
 				update="login-panel, menu-panel"
 				oncomplete="indexController.doAfterTryLogin();" />
 		</h:form>
@@ -64,7 +65,12 @@
 				<br />
 				<p:menuButton value="Acesso Usuário">
 					<p:menuitem value="Editar conta" actionListener="#{usuarioController.editar()}" update="content-pane" />
-					<p:menuitem value="Sair" actionListener="#{loginController.logout()}" update="login-panel, menu-panel, content-pane" />
+					
+					<p:menuitem 
+						value="Sair" 
+						actionListener="#{loginController.logout()}" 
+						update="login-panel, menu-panel, content-pane"
+						oncomplete="indexController.doAfterLogout();" />
 				</p:menuButton>
 			</div>
 		</h:form>

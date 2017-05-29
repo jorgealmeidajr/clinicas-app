@@ -21,6 +21,11 @@
 	<div id="content">
 		<p:outputPanel id="menu-panel" styleClass="hide-menu-panel">
 			<h:form rendered="#{loginController.usuarioLogado}">
+			
+				<div style="height: 50px; width: 100%; background-color: white;">
+					usuario logado...
+				</div>
+			
 				<p:commandButton 
 					id="homeBtn"
 					value="Home"
@@ -36,7 +41,7 @@
 					value="Médicos"
 					action="#{contentController.exibirListarMedicos()}"
 					update="content-pane"
-					styleClass="menu-panel-btn">
+					styleClass="menu-panel-btn medicos-icon">
 				</p:commandButton>
 				
 				<br />
@@ -49,7 +54,7 @@
 				<br />
 				
 				<p:commandButton 
-					value="Agenda"
+					value="Agenda ?"
 					styleClass="menu-panel-btn">
 				</p:commandButton>
 			</h:form>

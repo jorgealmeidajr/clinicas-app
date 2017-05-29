@@ -14,6 +14,18 @@ body {
   width: 380px;
 }
 
+.login-cadastrar-link {
+	width: 160px;
+	height: 35px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.login-entrar-btn {
+	margin-top: 10px; 
+	margin-left: 128px;
+}
+
 
 
 #content {
@@ -35,11 +47,14 @@ body {
 }
 
 .menu-panel-btn {
-	width: 130px;
-	height: 100px;
+	width: 150px;
+	height: 120px;
 	font-size: 18px !important;
 	margin-left: 5px;
 	margin-top: 5px;
+	background-size: 80px !important;
+  background-repeat: no-repeat !important;
+  background-position: 35px 8px !important;
 }
 
 #content-pane {
@@ -50,21 +65,19 @@ body {
 
 .menu-panel-btn .ui-button-text {
 	padding: 0;
-	margin-top: 70px
+	margin-top: 80px
 }
 
 .home-icon {
   background-image: url("../img/home-icon.png") !important;
-  background-size: 80px !important;
-  background-repeat: no-repeat !important;
-  background-position: 20px !important;
 }
 
 .clinicas-icon {
 	background-image: url("../img/clinicas-icon.png") !important;
-  background-size: 80px !important;
-  background-repeat: no-repeat !important;
-  background-position: 20px !important;
+}
+
+.medicos-icon {
+	background-image: url("../img/medicos-icon.png") !important;
 }
 
 
@@ -72,7 +85,7 @@ body {
 #footer {
 	width: 100%;
 	height: 100px;
-	background-color: rgb(117, 60, 139);
+	background-color: rgb(63, 40, 72);
 }
 
 
@@ -83,8 +96,18 @@ body {
 	margin-right: 15px;
 }
 
+.dialog {
+	background-color: aqua;
+}
 
 
 
 /* CUSTOMIZACAO DO PRIMEFACES */
+.ui-dialog .ui-dialog-titlebar {
+	margin: 0;
+}
 
+.ui-dialog .ui-dialog-content {
+	margin: 4px;
+	background-color: white;
+}
