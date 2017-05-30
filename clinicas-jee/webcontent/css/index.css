@@ -123,6 +123,17 @@ body {
 	background-color: aqua;
 }
 
+.btn {
+	width: 120px;
+}
+
+.btn-cancelar {
+	background-color: #B70000 !important;
+}
+
+.btn-cadastrar {
+	background-color: #35B235 !important;
+}
 
 
 /* CUSTOMIZACAO DO PRIMEFACES */
@@ -134,3 +145,9 @@ body {
 	margin: 4px;
 	background-color: white;
 }
+
+.ui-state-error {
+	border-bottom: 4px solid #ef5350 !important;
+	border-left: 0px !important;
+}
+

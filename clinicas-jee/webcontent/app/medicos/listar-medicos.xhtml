@@ -7,12 +7,12 @@
 <ui:composition>
 
 <div>
-	<div style="height:50px; width:100%; background-color: purple;">
-		<span style="color: white;">Listagem de Médicos</span>
+	<div style="height:40px; width:100%; background-color: rgb(63, 40, 72);">
+		<h3 style="color: white; margin: 0; padding: 7px;">Listagem de Médicos</h3>
 	</div>
 	
 	<h:form>
-		<div style="width:900px; background-color: aqua; margin-left: auto; margin-right: auto;">
+		<div style="width:850px; background-color: aqua; margin-left: auto; margin-right: auto;">
 			<div class="ui-g">
 		    <div class="ui-g-2"><span class="label">Nome : </span></div>
 		    <div class="ui-g-4">
@@ -53,27 +53,30 @@
 			</div>
 			
 			<div class="ui-g">
-				<div class="ui-g-8"></div>
+				<div class="ui-g-6"></div>
 				
-				<div class="ui-g-4">
+				<div class="ui-g-6" style="text-align: right;">
 					<p:commandButton 
 						value="Limpar" 
 						actionListener="#{medicoController.limparBusca}" 
-						update="@form, medicos" />
+						update="@form, medicos"
+						styleClass="btn" />
 					<!-- style="margin-top: 10px; margin-left: 148px;" -->
 					
 					<p:commandButton 
 						value="Pesquisar" 
 						actionListener="#{medicoController.pesquisar}" 
-						update="medicos" />
+						update="medicos"
+						styleClass="btn" />
 					
 					<p:commandButton 
 						value="Cadastrar" 
 						actionListener="#{medicoController.iniciarCadastro}"
 						immediate="true"
 						update="cadMedicoForm"
-						oncomplete="PF('cadMedicoDialog').show();" />
-					<!-- update="medicos" style="margin-top: 10px; margin-left: 148px;" -->
+						oncomplete="PF('cadMedicoDialog').show();"
+						styleClass="btn btn-cadastrar"
+						style="margin-right: 30px;" />
 				</div>
 			</div>
 		</div>
