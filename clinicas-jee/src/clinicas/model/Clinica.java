@@ -23,14 +23,17 @@ public class Clinica implements Serializable {
 	@Column(name = "razao_social", length = 255, nullable = false)
 	private String razaoSocial;
 	
-//	@Column
-//	private String cnpj;
+	@Column
+	private String cnpj;
 	
 	@Column
 	private String email;
 	
 	@Column
 	private String telefone;
+	
+	@Column(name = "atende_sus")
+	private Boolean atendeSus;
 
 	public Integer getId() {
 		return id;
@@ -62,6 +65,22 @@ public class Clinica implements Serializable {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public Boolean getAtendeSus() {
+		return atendeSus;
+	}
+
+	public void setAtendeSus(Boolean atendeSus) {
+		this.atendeSus = atendeSus;
 	}
 
 	@Override

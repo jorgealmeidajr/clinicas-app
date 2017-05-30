@@ -1,6 +1,7 @@
 package clinicas.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "medico")
@@ -29,6 +32,10 @@ public class Medico implements Serializable {
 	@Column(length = 55)
 	private String cpf;
 	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_nascimento")
+	private Date dataNascimento;
+	
 	@Lob
 	@Column(name = "foto_medico")
 	private byte[] foto;
@@ -40,7 +47,7 @@ public class Medico implements Serializable {
 	private Integer numeroCrm;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_estado_crm", referencedColumnName = "id_estado")
+	@JoinColumn(name = "id_estado_crm", referencedColumnName = "id_estado", nullable = true)
 	private Estado estadoCrm;
 	
 	@ManyToOne
@@ -93,6 +100,14 @@ public class Medico implements Serializable {
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 	public Estado getEstadoCrm() {
