@@ -22,8 +22,27 @@
 		<p:outputPanel id="menu-panel" styleClass="hide-menu-panel">
 			<h:form rendered="#{loginController.usuarioLogado}">
 			
-				<div style="height: 50px; width: 100%; background-color: white;">
-					usuario logado...
+				<div style="height: 170px; width: 100%; background-color: white;">
+					<div style="height: 20px; width: 100%;background-color: rgb(63, 40, 72);">
+					</div>
+				
+					<p:graphicImage
+						value="#{loginController.foto}"
+						rendered="#{loginController.usuario.foto != null}"
+						cache="false"
+						styleClass="foto-usuario">
+					</p:graphicImage>
+					
+					<div class="usuario-dados">
+						<br />
+						nome do usuario
+						<br />
+						email do usuario
+						<br />
+						editar conta
+						<br />
+						sair
+					</div>
 				</div>
 			
 				<p:commandButton 
