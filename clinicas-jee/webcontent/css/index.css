@@ -15,15 +15,20 @@ body {
 }
 
 .login-cadastrar-link {
-	width: 160px;
+	width: 181px;
 	height: 35px;
 	display: inline-block;
+	margin-top: 2px;
 	cursor: pointer;
+	text-decoration: none;
+	font-size: 18px !important;
+	font-weight: bold;
+	color: white;
 }
 
 .login-entrar-btn {
-	margin-top: 10px; 
-	margin-left: 128px;
+	margin-top: 2px; 
+	margin-left: 106px;
 }
 
 

@@ -32,7 +32,8 @@
 				actionListener="#{contentController.exibirCadastrarUsuario}"
 				update="content-pane"
 				immediate="true"
-				styleClass="login-cadastrar-link">
+				styleClass="login-cadastrar-link"
+				oncomplete="indexController.atualizarMenuPanel();">
         <h:outputText value="Quero me cadastrar" />
     	</p:commandLink>
 			
