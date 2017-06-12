@@ -1,5 +1,7 @@
 package clinicas.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
@@ -10,6 +12,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 import clinicas.model.Usuario;
 import clinicas.service.UsuarioService;
@@ -65,8 +69,13 @@ public class UsuarioController implements Serializable {
 		byte[] bytesImagem = event.getFile().getContents();
 		usuario.setFoto(bytesImagem);
 		
-		FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+		FacesMessage message = new FacesMessage("Sucesso",
+			"Upload da imagem : '" + event.getFile().getFileName() + "' feita com sucesso.");
         FacesContext.getCurrentInstance().addMessage(null, message);
+	}
+	
+	public StreamedContent getFotoEnviada() throws IOException {
+		return new DefaultStreamedContent(new ByteArrayInputStream(usuario.getFoto()));
 	}
 
 	public Usuario getUsuario() {
