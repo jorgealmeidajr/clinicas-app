@@ -1,4 +1,6 @@
 
+const animationTimeMillis = 1500;
+
 var indexController = {
 	atualizarMenuPanel : function() {
 		if($('#menu-panel').html() !== "") {
@@ -13,19 +15,44 @@ var indexController = {
 	doAfterTryLogin : function() {
 		if($('#menu-panel').html().toString().replace(/ /g,'') !== "") {
 			$("#menu-panel").animate({
-				"left" : "+=160px"
-			}, 1500, function() { });
+				left : "+=160",
+				height : "+=110"
+			}, animationTimeMillis, function() { });
+			
+			$("#content").animate({
+				height : "+=110"
+			}, animationTimeMillis, function() { });
 			
 			$("#content-pane").animate({
-				"margin-left" : "+=160px"
-			}, 1500, function() { });
+				"margin-left" : "+=160px",
+			}, animationTimeMillis, function() { });
+			
+			$("#header").animate({
+				height : "-=110"
+			}, animationTimeMillis, function() {
+				$("#header").css('display', 'none');
+			});
 		}
 	},
 	
 	doAfterLogout : function() {
+		$("#menu-panel").animate({
+			height : "-=110"
+		}, animationTimeMillis, function() { });
+		
+		$("#content").animate({
+			height : "-=110"
+		}, animationTimeMillis, function() { });
+		
 		$("#content-pane").animate({
 			"margin-left" : "-=160px"
-		}, 1500, function() { });
+		}, animationTimeMillis, function() { });
+		
+		$("#header").animate({
+			height : "+=110"
+		}, animationTimeMillis, function() {
+			$("#header").css('display', 'block');
+		});
 	}
 };
 
