@@ -25,23 +25,31 @@
 				<div style="height: 170px; width: 100%; background-color: white;">
 					<div style="height: 40px; width: 100%;background-color: rgb(63, 40, 72);">
 					</div>
-				
+					
 					<p:graphicImage
+						id="foto-usuario-logado"
 						value="#{loginController.foto}"
 						rendered="#{loginController.usuario.foto != null}"
 						cache="false"
 						styleClass="foto-usuario">
 					</p:graphicImage>
 					
+					<p:tooltip for="foto-usuario-logado" position="right" showEffect="clip" style="width: 250px;">
+						Nome: <h:outputText value="#{loginController.usuario.nome}" />
+						<br />
+						Email: <h:outputText value="#{loginController.usuario.email}" />
+			    </p:tooltip>
+					
 					<div class="usuario-dados">
 						<br />
-						nome do usuario
+						Editar Conta
 						<br />
-						email do usuario
-						<br />
-						editar conta
-						<br />
-						sair
+						<p:commandLink 
+							value="Sair"
+							styleClass="usuario-link"
+							actionListener="#{loginController.logout()}" 
+							update="login-panel, menu-panel, content-pane"
+							oncomplete="indexController.doAfterLogout();" />
 					</div>
 				</div>
 			
@@ -70,12 +78,10 @@
 					styleClass="menu-panel-btn clinicas-icon">
 				</p:commandButton>
 				
-				<br />
-				
-				<p:commandButton 
+				<!-- <p:commandButton 
 					value="Agenda ?"
 					styleClass="menu-panel-btn">
-				</p:commandButton>
+				</p:commandButton> -->
 			</h:form>
 		</p:outputPanel>
 		

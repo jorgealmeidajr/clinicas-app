@@ -48,12 +48,12 @@
 		<!-- Formulario que sera renderizado quando o usuario logou -->
 		<h:form rendered="#{loginController.usuarioLogado}" prependId="false">
 			<span style="float: left;">
-				<h:outputText value="#{loginController.usuario.nome}" />
+				Usuário logado: <b><h:outputText value="#{loginController.usuario.nome}" /></b>
 				<br />
-				<h:outputText value="#{loginController.usuario.email}" />
+				Data/Hora do último login: <b>...</b>
 			</span>
 			
-			<div style="float: right;">
+			<div style="float: right; display: none;">
 				<h:graphicImage value="img/person-icon.png" rendered="#{loginController.usuario.foto == null}" style="width: 70px;" />
 				
 				<p:graphicImage

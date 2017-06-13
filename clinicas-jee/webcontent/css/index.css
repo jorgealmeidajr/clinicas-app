@@ -45,6 +45,14 @@ body {
 	background-color: rgb(0, 132, 171);
 }
 
+.usuario-link {
+	cursor: pointer;
+	text-decoration: none;
+	font-size: 18px !important;
+	font-weight: bold;
+	color: black;
+}
+
 .foto-usuario {
 	width: 70px;
   border-radius: 50%;
