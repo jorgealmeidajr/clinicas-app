@@ -4,13 +4,13 @@ body {
 
 #header {
 	width: 100%;
-	height: 110px;
+	height: 100px;
 	background-color: rgb(12, 167, 211);
 }
 
 .login-panel {
 	float: right;
-	height: 120px;
+	height: 100%;
   width: 380px;
 }
 
