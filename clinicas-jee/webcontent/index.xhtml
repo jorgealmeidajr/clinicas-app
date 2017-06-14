@@ -14,7 +14,15 @@
 	<p:growl id="growl" life="3000" autoUpdate="true" />
 
 	<div id="header">
-		<img src="img/logo.png" alt="Logo" style="max-height: 100%;" />
+		<h:form prependId="false" style="display: inline;">
+			<p:commandLink
+				action="#{contentController.exibirPaginaInicial()}"
+				update="content-pane"
+				oncomplete="indexController.atualizarPaginaIndex();">
+				<img src="img/logo.png" alt="Logo" style="max-height: 100%;" />	
+			</p:commandLink>
+		</h:form>
+		
 		<ui:include src="login-panel.xhtml" />
 	</div>
 	
