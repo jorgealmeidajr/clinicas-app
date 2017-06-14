@@ -34,7 +34,10 @@
 						value="#{usuarioController.usuario.email}" 
 						required="true" requiredMessage="O email é obrigatório!"
 						style="width: 300px;" 
-						validator="emailValidator" />
+						validator="emailValidator"
+						rendered="#{usuarioController.usuario.id == null}" />
+						
+					<h:outputText value="#{usuarioController.usuario.email}" rendered="#{usuarioController.usuario.id != null}" />
 				</div>
 			</div>
 			
