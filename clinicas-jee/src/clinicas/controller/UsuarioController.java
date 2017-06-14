@@ -41,6 +41,8 @@ public class UsuarioController implements Serializable {
 	}
 
 	public void salvar() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		
 		try {
 			if (senha == null || senha.trim().isEmpty()) {
 				throw new IllegalArgumentException("O campo senha é obrigatório no cadastro de Usuário.");
@@ -48,8 +50,11 @@ public class UsuarioController implements Serializable {
 			
 			usuario.setSenha(senha.trim());
 			service.salvar(usuario);
+			
+			init();
+			context.addMessage(null, new FacesMessage("Usuário criado com sucesso."));
+			
 		} catch (Exception e) {
-			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage(e.getMessage()));
 		}
 	}

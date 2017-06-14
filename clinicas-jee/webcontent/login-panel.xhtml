@@ -29,11 +29,12 @@
 			<br />
 			
 			<p:commandLink 
+				action="#{usuarioController.init}"
 				actionListener="#{contentController.exibirCadastrarUsuario}"
 				update="content-pane"
 				immediate="true"
 				styleClass="login-cadastrar-link"
-				oncomplete="indexController.atualizarMenuPanel();">
+				oncomplete="indexController.atualizarPaginaIndex();">
         <h:outputText value="Quero me cadastrar" />
     	</p:commandLink>
 			

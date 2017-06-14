@@ -32,6 +32,10 @@ public class UsuarioService {
 	
 	@Transactional
 	public void salvar(Usuario usuario) {
+		if(dao.findByEmail(usuario.getEmail()).isPresent()) {
+			throw new IllegalArgumentException("O email informado já está cadastrado");
+		} 		
+		
 		String senhaCriptografada = CriptografiaUtils.converterStringParaMD5(usuario.getSenha());
 		usuario.setSenha(senhaCriptografada);
 		

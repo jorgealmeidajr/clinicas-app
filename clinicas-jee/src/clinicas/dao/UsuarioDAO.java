@@ -25,4 +25,18 @@ public class UsuarioDAO extends GenericDAO<Usuario> {
 		return Optional.ofNullable(retorno);
 	}
 	
+	public Optional<Usuario> findByEmail(String email) {
+		Usuario retorno = null;
+		
+		TypedQuery<Usuario> q = em.createQuery(
+			"select u from Usuario u where u.email = :email", Usuario.class);
+		q.setParameter("email", email);
+
+		try {
+			retorno = q.getSingleResult();
+		} catch (Exception e) { }
+		
+		return Optional.ofNullable(retorno);
+	}
+	
 }

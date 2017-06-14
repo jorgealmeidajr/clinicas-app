@@ -96,7 +96,8 @@
 					<p:commandButton 
 						value="Criar conta" 
 						action="#{usuarioController.salvar}" 
-						rendered="#{usuarioController.usuario.id == null}" />
+						rendered="#{usuarioController.usuario.id == null}"
+						update="frmUsuario" />
 						
 					<p:commandButton 
 						value="Atualizar" 

@@ -42,7 +42,12 @@
 					
 					<div class="usuario-dados">
 						<br />
-						Editar Conta
+						<p:commandLink 
+							action="#{usuarioController.editar}"
+							update="content-pane"
+							styleClass="usuario-link">
+			        <h:outputText value="Editar Conta" />
+			    	</p:commandLink>
 						<br />
 						<p:commandLink 
 							value="Sair"
