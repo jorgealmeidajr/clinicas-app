@@ -15,12 +15,18 @@
 
 	<div id="header">
 		<h:form prependId="false" style="display: inline;">
-			<p:commandLink
-				action="#{contentController.exibirPaginaInicial()}"
-				update="content-pane"
-				oncomplete="indexController.atualizarPaginaIndex();">
-				<img src="img/logo.png" alt="Logo" style="max-height: 100%;" />	
-			</p:commandLink>
+			<div id="logo">
+				<p:commandLink
+					action="#{contentController.exibirPaginaInicial()}"
+					update="content-pane"
+					oncomplete="indexController.atualizarPaginaIndex();">
+					<img src="img/cardiogram.png" alt="Logo" class="logo-image" />
+					
+					<div style="display: inline-block; height: 100%;">
+						<span class="logo-text">Gerenciador de Clínicas Médicas</span>
+					</div>
+				</p:commandLink>
+			</div>
 		</h:form>
 		
 		<ui:include src="login-panel.xhtml" />
