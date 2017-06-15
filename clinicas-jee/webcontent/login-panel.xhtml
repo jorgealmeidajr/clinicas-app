@@ -47,14 +47,25 @@
 		</h:form>
 		
 		<!-- Formulario que sera renderizado quando o usuario logou -->
-		<h:form rendered="#{loginController.usuarioLogado}" prependId="false">
+		<h:form rendered="#{loginController.usuarioLogado}" prependId="false" style="display: inline;">
 			<span style="float: left;">
 				Usuário logado: <b><h:outputText value="#{loginController.usuario.nome}" /></b>
 				<br />
 				Data/Hora do último login: <b>...</b>
 			</span>
 			
+			<p:commandLink
+				actionListener="#{loginController.logout()}" 
+				update="login-panel, menu-panel, content-pane"
+				oncomplete="indexController.doAfterLogout();">
+				<h:graphicImage value="img/logout.png" styleClass="logout-image" />
+			</p:commandLink>
+			
+			
+			
 			<div style="float: right; display: none;">
+			
+				<!-- falta colocar essa imagem no index -->
 				<h:graphicImage value="img/person-icon.png" rendered="#{loginController.usuario.foto == null}" style="width: 70px;" />
 				
 				<p:graphicImage
