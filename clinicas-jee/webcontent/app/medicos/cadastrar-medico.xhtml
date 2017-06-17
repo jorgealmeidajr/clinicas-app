@@ -8,7 +8,7 @@
 	<p:dialog 
 		id="cadMedicoDialog" 
 		widgetVar="cadMedicoDialog" 
-		width="550"
+		width="700"
 		resizable="false" draggable="false" modal="true"  
 		showEffect="clip" hideEffect="fold"
 		styleClass="dialog">
@@ -69,31 +69,64 @@
         	</p:selectOneMenu>
 		    </div>
 		  </div>
+		  
+		  <div class="ui-g">
+		  	<div class="ui-g-4">
+		  		<span class="label">Data de Nascimento : </span>
+		  	</div>
+		  	<div class="ui-g-8">
+		  		<p:calendar 
+		  			value="#{medicoController.entidadeCadastro.dataNascimento}"
+		  			mode="popup" showOn="button"
+		  			pattern="dd/MM/yyyy" mask="true" />
+		  	</div>
+		  </div>
+		  
+		  <div class="ui-g">		  	
+		  	<div class="ui-g-12">
+		  		<p:fileUpload 
+						fileUploadListener="#{medicoController.handleImagemUpload}" 
+						mode="advanced" 
+						dragDropSupport="false"
+		        sizeLimit="3000000" 
+		        fileLimit="1" multiple="true"
+		        fileLimitMessage="Envie somente uma imagem"
+		        allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
+		        label="Escolher" uploadLabel="Enviar" cancelLabel="Cancelar"
+		        invalidFileMessage="São permitidas somente imagens (gif, jpeg, jpg e png)" 
+		        update="@this" />
+		  	</div>
+		  </div>
+		  
+		  <div class="ui-g">
+		  	<div class="ui-g-12">
+			  	<p:commandButton 
+		      	value="Cancelar" 
+		      	icon="ui-icon-closethick" 
+		      	onclick="PF('cadMedicoDialog').hide();" 
+		      	immediate="true"
+		      	styleClass="btn btn-cancelar" />
+		      	
+					<p:commandButton  
+		      	value="Salvar" 
+		      	actionListener="#{medicoController.salvar}" 
+		      	icon="ui-icon-disk"
+		      	rendered="#{medicoController.entidadeCadastro.id == null}"
+		      	oncomplete="PF('cadMedicoDialog').hide();"
+		      	update="medicos"
+		      	styleClass="btn" />
+		      	
+		      <p:commandButton  
+		      	value="Atualizar" 
+		      	actionListener="#{medicoController.atualizar}" 
+		      	icon="ui-icon-disk"
+		      	rendered="#{medicoController.entidadeCadastro.id != null}"
+		      	oncomplete="PF('cadMedicoDialog').hide();"
+		      	update="medicos"
+		      	styleClass="btn" />
+		  	</div>
+		  </div>
       
-      <p:commandButton 
-      	value="Cancelar" 
-      	icon="ui-icon-closethick" 
-      	onclick="PF('cadMedicoDialog').hide();" 
-      	immediate="true"
-      	styleClass="btn btn-cancelar" />
-      
-      <p:commandButton  
-      	value="Salvar" 
-      	actionListener="#{medicoController.salvar}" 
-      	icon="ui-icon-disk"
-      	rendered="#{medicoController.entidadeCadastro.id == null}"
-      	oncomplete="PF('cadMedicoDialog').hide();"
-      	update="medicos"
-      	styleClass="btn" />
-      	
-      <p:commandButton  
-      	value="Atualizar" 
-      	actionListener="#{medicoController.atualizar}" 
-      	icon="ui-icon-disk"
-      	rendered="#{medicoController.entidadeCadastro.id != null}"
-      	oncomplete="PF('cadMedicoDialog').hide();"
-      	update="medicos"
-      	styleClass="btn" />      
 		</h:form>
 		
 	</p:dialog>

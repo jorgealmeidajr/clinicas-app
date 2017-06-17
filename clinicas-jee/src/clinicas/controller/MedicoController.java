@@ -1,17 +1,23 @@
 package clinicas.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 import clinicas.dao.EspecialidadeDAO;
 import clinicas.dao.EstadoDAO;
@@ -147,6 +153,25 @@ public class MedicoController implements Serializable {
 		return especialidades.stream()
 							 .filter(e -> e.getNome().toLowerCase().contains(nome))
 							 .collect(Collectors.toList());
+	}
+	
+	public void handleImagemUpload(FileUploadEvent event) {
+		byte[] bytesImagem = event.getFile().getContents();
+		entidadeCadastro.setFoto(bytesImagem);
+	}
+	
+	public StreamedContent displayImage(byte[] image) {
+		// esse metodo nao funcionou, TODO pesquisar o motivo...
+		FacesContext context = FacesContext.getCurrentInstance();
+
+		if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+			return new DefaultStreamedContent();
+		} else {
+			if(image != null) 
+				return new DefaultStreamedContent(new ByteArrayInputStream(image));
+		}
+
+		return new DefaultStreamedContent();
 	}
 
 	public Medico getEntidadeCadastro() {

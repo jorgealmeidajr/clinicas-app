@@ -12,7 +12,7 @@
 	</div>
 	
 	<h:form>
-		<div style="width:850px; background-color: aqua; margin-left: auto; margin-right: auto;">
+		<div style="width:820px; background-color: aqua; margin-left: auto; margin-right: auto;">
 			<div class="ui-g">
 		    <div class="ui-g-2"><span class="label">Nome : </span></div>
 		    <div class="ui-g-4">
@@ -86,14 +86,14 @@
 	<p:dataTable 
 		id="medicos" 
 		value="#{medicoController.medicos}" var="m" 
-		scrollable="true" scrollHeight="188"
+		scrollable="true" scrollHeight="480"
 		editable="true">
 		
 		<p:ajax event="rowEdit" listener="#{medicoController.onRowEdit}" /><!-- update=":form:msgs" -->
     <p:ajax event="rowEditCancel" listener="#{medicoController.onRowCancel}" />
 		
 		<p:column headerText="Foto" width="150" resizable="false">
-			
+			<p:graphicImage value="/images/medicos?id=#{m.id}" height="100" cache="false" />
 		</p:column>
 		
 		<p:column headerText="Nome">
@@ -113,7 +113,7 @@
 			<h:outputText value="#{m.telefone}" />
 		</p:column>
 		
-		<p:column headerText="" width="70" resizable="false">
+		<p:column headerText="" width="90" resizable="false">
 			<p:commandButton update="cadMedicoForm" oncomplete="PF('cadMedicoDialog').show();" icon="ui-icon-search">
 				<f:setPropertyActionListener value="#{m}" target="#{medicoController.entidadeCadastro}" />
 			</p:commandButton>
