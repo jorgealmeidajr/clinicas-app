@@ -180,14 +180,29 @@ body {
 }
 
 
-/* CUSTOMIZACAO DO PRIMEFACES */
+
+/* Customizacao do PRIMEFACES */
 .ui-dialog .ui-dialog-titlebar {
 	margin: 0;
+	padding: 0;
+	padding-left: 3px;
 }
 
 .ui-dialog .ui-dialog-content {
 	margin: 4px;
 	background-color: white;
+}
+
+.ui-dialog-titlebar-close {
+	width: 50px;
+	height: 50px;
+	background-image: url("../img/close.png") !important;
+	background-size: 50px !important;
+  background-repeat: no-repeat !important;
+}
+
+.ui-dialog-titlebar-close .ui-icon {
+	background-image: none !important;
 }
 
 .ui-state-error {
