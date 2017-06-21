@@ -2,8 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 <ui:composition>
-	<h:outputText value="buscar-medicos.xhtml" />
+	<div class="banner-container">
+		<img src="img/banner-bg.jpg" class="banner-image" />
+		
+		<div class="banner-buscar-medicos">
+			<input name="nome" id="nome" placeholder="Nome do Médico" class="banner-campo" />
+		</div>		
+	</div>
 </ui:composition>
 </html>
