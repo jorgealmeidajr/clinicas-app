@@ -5,6 +5,17 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 <ui:composition>
+
+	<script type="text/javascript">
+	function handleDialogSubmit(xhr, status, args) {
+		if (args.validationFailed) {
+		//dialog.show();
+		} else {
+			PF('cadMedicoDialog').hide();
+		}
+	}
+	</script>
+
 	<p:dialog 
 		id="cadMedicoDialog" 
 		widgetVar="cadMedicoDialog" 
@@ -13,7 +24,7 @@
 		showEffect="clip" hideEffect="fold"
 		styleClass="dialog">
 		<f:facet name="header">
-			<h:outputText value="Cadastro de Médico" />
+			<h:outputText value="Cadastro de Médico" style="color: white;" />
 		</f:facet>
 		
 		<h:form id="cadMedicoForm">
@@ -112,8 +123,10 @@
 		      	actionListener="#{medicoController.salvar}" 
 		      	icon="ui-icon-disk"
 		      	rendered="#{medicoController.entidadeCadastro.id == null}"
-		      	oncomplete="PF('cadMedicoDialog').hide();"
-		      	update="medicos"
+		      	
+		      	oncomplete="handleDialogSubmit(xhr, status, args)"
+		      	
+		      	update="medicos, cadMedicoForm"
 		      	styleClass="btn" />
 		      	
 		      <p:commandButton  

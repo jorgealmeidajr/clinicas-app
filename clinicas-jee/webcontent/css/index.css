@@ -16,6 +16,10 @@ body {
 	height: 100%;
 }
 
+#logo:hover {
+	background-color: rgb(5, 145, 185);
+}
+
 #logo a {
 	display: inline-block; 
 	text-decoration: none; 
@@ -56,6 +60,10 @@ body {
 	color: white;
 }
 
+.login-cadastrar-link:hover {
+	background-color: rgb(5, 145, 185);
+}
+
 .login-entrar-btn {
 	margin-top: 2px; 
 	margin-left: 106px;
@@ -64,6 +72,9 @@ body {
 .logout-image {
 	float: right;
   height: 100%;
+}
+
+.logout-image:hover {
 	background-color: rgb(5, 145, 185);
 }
 
@@ -71,15 +82,17 @@ body {
 
 #content {
 	width: 100%;
-	height: 1000px;
+	height: 1000px; /* tem de ter o mesmo valor de #menu-panel */
 	background-color: #d6ebf2;
 }
 
 #menu-panel {
 	width: 160px;
-	height: 700px;
+	height: 1000px; /* tem de ter o mesmo valor de #content */
 	background-color: rgb(0, 132, 171);
 }
+
+
 
 .usuario-link {
 	cursor: pointer;
@@ -226,7 +239,7 @@ body {
 }
 
 .dialog {
-	background-color: aqua;
+	background-color: rgb(63, 40, 72);
 }
 
 .btn {
