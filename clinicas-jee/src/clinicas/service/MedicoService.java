@@ -51,6 +51,35 @@ public class MedicoService {
 		return predicates.stream().reduce(w -> true, Predicate::and);
 	}
 	
+	public List<Medico> listar(String nome, Integer idEspecialidade, Integer idCidade) {
+		if ("".equals(nome) && idEspecialidade == null && idCidade == null) {
+			return new ArrayList<>();
+		}
+		
+		return dao.listar()
+				  .stream()
+				  .filter(filtrar(nome, idEspecialidade, idCidade))
+				  .collect(Collectors.toList());
+	}
+	
+	private Predicate<Medico> filtrar(final String nome, final Integer idEspecialidade, final Integer idCidade) {
+		List<Predicate<Medico>> predicates = new ArrayList<>();
+
+		if (!"".equals(nome.trim())) {
+			predicates.add(m -> m.getNome().toLowerCase().contains(nome.trim().toLowerCase()));
+		}
+
+		if(idEspecialidade != null) {
+			predicates.add(m -> m.getEspecialidade().getId().equals(idEspecialidade));
+		}
+				
+//		TODO if(parametrosBusca.getEstadoCrm().getId() != null) {
+//			predicates.add(m -> m.getEstadoCrm().getId().equals(parametrosBusca.getEstadoCrm().getId()));
+//		}
+	        
+		return predicates.stream().reduce(w -> true, Predicate::and);
+	}
+	
 	@Transactional
 	public void salvar(Medico medico) {
 		dao.salvar(medico);

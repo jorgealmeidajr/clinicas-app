@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -16,7 +17,6 @@ import clinicas.dao.CidadeDAO;
 import clinicas.dao.EspecialidadeDAO;
 import clinicas.model.Cidade;
 import clinicas.model.Especialidade;
-import clinicas.model.Estado;
 import clinicas.model.Medico;
 import clinicas.service.MedicoService;
 
@@ -61,16 +61,7 @@ public class BuscarMedicosController implements Serializable {
 	}
 	
 	public void buscarMedicos() {
-		System.out.println(nome);
-		
-		Medico parametrosBusca = new Medico();
-		parametrosBusca.setNome(nome);
-		parametrosBusca.setCpf("");
-		parametrosBusca.setEspecialidade(new Especialidade());
-		parametrosBusca.setEstadoCrm(new Estado());
-		
-		//TODO criar uma consulta especifica
-		medicos = medicoService.listar(parametrosBusca);
+		medicos = medicoService.listar(nome, idEspecialidade, idCidade);
 	}
 	
 	public List<Especialidade> completeEspecialidades(String nomeEspecialidade) {
@@ -83,7 +74,13 @@ public class BuscarMedicosController implements Serializable {
 	
 	public void especilidadeSelecionada(SelectEvent event) {
         System.out.println(idEspecialidade);
+        
+        medicos = medicoService.listar(nome, idEspecialidade, idCidade);
     }
+	
+	public void campoEspecialidadeMudou(AjaxBehaviorEvent ev) {
+		medicos = medicoService.listar(nome, idEspecialidade, idCidade);
+	}
 	
 	public List<Cidade> completeCidades(String nomeCidade) {
 		final String nome = nomeCidade.trim().toLowerCase();
@@ -95,6 +92,8 @@ public class BuscarMedicosController implements Serializable {
 	
 	public void cidadeSelecionada(SelectEvent event) {
         System.out.println("Cidade: " + idCidade);
+        
+        medicos = medicoService.listar(nome, idEspecialidade, idCidade);
     }
 	
 	public List<Especialidade> getEspecialidades() {

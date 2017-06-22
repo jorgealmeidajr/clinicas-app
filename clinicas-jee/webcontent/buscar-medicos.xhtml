@@ -32,7 +32,8 @@
 	    		<p:column>
 						<h:outputText value="#{e.nome}" />
 					</p:column>
-					<p:ajax event="itemSelect" update="medicos" listener="#{buscarMedicosController.especilidadeSelecionada}" />
+					<p:ajax event="itemSelect" update="medicos" listener="#{buscarMedicosController.especilidadeSelecionada}" process="@form" />
+					<p:ajax event="change" update="medicos" listener="#{buscarMedicosController.campoEspecialidadeMudou}" process="@form" /> 
 	    	</p:autoComplete>
 	    	<p:watermark for="especialidade" value="Especialidade do Médico" />
 	    	
