@@ -161,33 +161,48 @@ body {
 	width: 100%;
 	position: relative;
 	border-bottom: 4px #005f8d solid;
+	background-color: white;
 }
 
 .banner-image {
-	width: 100%;
-  max-width: 100%;
-  height: auto;
+  height: 400px;
   vertical-align: middle;
+  display: block;
+  margin: 0px auto;
 }
 
 .banner-buscar-medicos {
 	display: inline-block;
-	width: 450px;
+	width: 400px;
 	margin-left: auto;
 	margin-right: auto;
 	position: absolute;
   left: 0px;
   right: 0px;
-  bottom: 160px;
+  bottom: 30px;
+  background-color: rgb(12, 167, 211);
+  opacity: 0.9;
+}
+
+.banner-buscar-medicos h2 {
+	color: white;
+	margin: 4px 0px;
 }
 
 .banner-campo {
-	width: 100%;
-  height: 40px;
   margin-bottom: 5px;
-  font-size: 25px;
 	border: 2px #005f8d solid;
-	border-radius: 8px;
+	border-radius: 5px;
+}
+
+.banner-campo .ui-autocomplete-input {
+	width: 350px;
+}
+
+.medico {
+	height: 230px;
+	width: 210px;
+	background-color: yellow;
 }
 /* buscar-medicos.xhtml */
 

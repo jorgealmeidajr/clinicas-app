@@ -9,31 +9,45 @@
 		<img src="img/banner-bg.jpg" class="banner-image" />
 		
 		<div class="banner-buscar-medicos">
+			<h2>Busque o seu médico</h2>
+		
 			<h:form prependId="false">
-				<p:inputText value="#{buscarMedicosController.nome}" styleClass="banner-campo">
+				<p:inputText id="nome" value="#{buscarMedicosController.nome}" styleClass="banner-campo" style="width: 388px;">
 					<p:ajax event="keyup" update="medicos" listener="#{buscarMedicosController.buscarMedicos}" />
 				</p:inputText>
+				<p:watermark for="nome" value="Nome do Médico" />
+				
+				<br />
 				
 				<p:autoComplete 
+					id="especialidade"
 	    		minQueryLength="2" queryDelay="500"
 	    		dropdown="true" forceSelection="true"
 	    		value="#{buscarMedicosController.idEspecialidade}" 
 	    		completeMethod="#{buscarMedicosController.completeEspecialidades}"
 	    		var="e" itemLabel="#{e.nome}" itemValue="#{e.id}"
-	    		scrollHeight="200">
+	    		scrollHeight="200"
+	    		styleClass="banner-campo"
+	    		style="width: 395px;">
 	    		<p:column>
 						<h:outputText value="#{e.nome}" />
 					</p:column>
 					<p:ajax event="itemSelect" update="medicos" listener="#{buscarMedicosController.especilidadeSelecionada}" />
 	    	</p:autoComplete>
+	    	<p:watermark for="especialidade" value="Especialidade do Médico" />
+	    	
+	    	<br />
 	    	
 	    	<p:autoComplete 
+	    		id="cidade"
 	    		minQueryLength="2" queryDelay="500"
 	    		dropdown="true" forceSelection="true"
 	    		value="#{buscarMedicosController.idCidade}" 
 	    		completeMethod="#{buscarMedicosController.completeCidades}"
 	    		var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade.id}"
-	    		scrollHeight="200">
+	    		scrollHeight="200"
+	    		styleClass="banner-campo"
+	    		style="width: 395px;">
 	    		<p:column>
 						<h:outputText value="#{cidade.nome}" />
 					</p:column>
@@ -42,6 +56,8 @@
 					</p:column>
 					<p:ajax event="itemSelect" update="medicos" listener="#{buscarMedicosController.cidadeSelecionada}" />
 	    	</p:autoComplete>
+	    	<p:watermark for="cidade" value="Cidade onde o Médico atende" />
+	    	
 			</h:form>
 		</div>
 	</div>
@@ -49,8 +65,13 @@
 	<p:dataGrid 
 		id="medicos" var="medico" 
 		value="#{buscarMedicosController.medicos}" 
-		columns="5" layout="grid" >
-		<p:graphicImage value="/images/medicos?id=#{medico.id}" height="150" cache="false" styleClass="table-image" />
+		columns="4" layout="grid"
+		emptyMessage="Nenhum médico encontrado com os parâmetros informados.">
+		<div class="medico">
+			<p:graphicImage value="/images/medicos?id=#{medico.id}" height="150" cache="false" styleClass="table-image" />
+			#{medico.nome}<br />
+			#{medico.especialidade.nome}<br />
+		</div>
   </p:dataGrid>
   
 </ui:composition>
