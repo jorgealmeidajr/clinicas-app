@@ -5,6 +5,21 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 <ui:composition>
+
+	<script type="text/javascript">
+	function onBlurEspecialidade() {
+		let especialidade = $('#especialidade_input');
+		if (especialidade.val().trim() === '')
+			limparCampoEspecialidade();
+	}
+
+	function onBlurCidade() {
+		let cidade = $('#cidade_input');
+		if (cidade.val().trim() === '')
+			limparCampoCidade();
+	}
+	</script>
+
 	<div class="banner-container">
 		<img src="img/banner-bg.jpg" class="banner-image" />
 		
@@ -23,19 +38,24 @@
 					id="especialidade"
 	    		minQueryLength="2" queryDelay="500"
 	    		dropdown="true" forceSelection="true"
-	    		value="#{buscarMedicosController.idEspecialidade}" 
+	    		value="#{buscarMedicosController.especialidade}" 
 	    		completeMethod="#{buscarMedicosController.completeEspecialidades}"
-	    		var="e" itemLabel="#{e.nome}" itemValue="#{e.id}"
+	    		converter="#{especialidadeConverter}"
+	    		var="e" itemLabel="#{e.nome}" itemValue="#{e}"
 	    		scrollHeight="200"
 	    		styleClass="banner-campo"
-	    		style="width: 395px;">
+	    		style="width: 395px;" 
+	    		onblur="onBlurEspecialidade();">
 	    		<p:column>
 						<h:outputText value="#{e.nome}" />
 					</p:column>
-					<p:ajax event="itemSelect" update="medicos" listener="#{buscarMedicosController.especilidadeSelecionada}" process="@form" />
-					<p:ajax event="change" update="medicos" listener="#{buscarMedicosController.campoEspecialidadeMudou}" process="@form" /> 
+					<p:ajax event="itemSelect" update="medicos" listener="#{buscarMedicosController.especialidadeSelecionada}" process="@form" />
 	    	</p:autoComplete>
 	    	<p:watermark for="especialidade" value="Especialidade do Médico" />
+	    	<p:remoteCommand 
+	    		name="limparCampoEspecialidade" 
+	    		update="medicos" 
+	    		actionListener="#{buscarMedicosController.limparCampoEspecialidade}" />
 	    	
 	    	<br />
 	    	
@@ -43,22 +63,28 @@
 	    		id="cidade"
 	    		minQueryLength="2" queryDelay="500"
 	    		dropdown="true" forceSelection="true"
-	    		value="#{buscarMedicosController.idCidade}" 
+	    		value="#{buscarMedicosController.cidade}" 
 	    		completeMethod="#{buscarMedicosController.completeCidades}"
-	    		var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade.id}"
+	    		converter="#{cidadeConverter}"
+	    		var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade}"
 	    		scrollHeight="200"
 	    		styleClass="banner-campo"
-	    		style="width: 395px;">
+	    		style="width: 395px;"
+	    		onblur="onBlurCidade();">
 	    		<p:column>
 						<h:outputText value="#{cidade.nome}" />
 					</p:column>
 					<p:column>
 						<h:outputText value="#{cidade.estado.sigla}" />
 					</p:column>
-					<p:ajax event="itemSelect" update="medicos" listener="#{buscarMedicosController.cidadeSelecionada}" />
+					<p:ajax event="itemSelect" update="medicos" listener="#{buscarMedicosController.cidadeSelecionada}" process="@form" />
 	    	</p:autoComplete>
 	    	<p:watermark for="cidade" value="Cidade onde o Médico atende" />
-	    	
+	    	<p:remoteCommand 
+	    		name="limparCampoCidade" 
+	    		update="medicos" 
+	    		actionListener="#{buscarMedicosController.limparCampoCidade}" />
+	    		
 			</h:form>
 		</div>
 	</div>

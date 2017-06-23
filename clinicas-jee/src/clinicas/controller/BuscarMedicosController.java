@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -28,9 +27,11 @@ public class BuscarMedicosController implements Serializable {
 	
 	private String nome;
 	
+	private Especialidade especialidade;
 	private Integer idEspecialidade;
 	private List<Especialidade> especialidades;
 	
+	private Cidade cidade;
 	private Integer idCidade;
 	private List<Cidade> cidades;
 	
@@ -53,15 +54,17 @@ public class BuscarMedicosController implements Serializable {
 	public void init() {
 		medicos = new ArrayList<>();
 		
+		especialidade = new Especialidade();
 		especialidades = new ArrayList<>();
 		especialidades.addAll(especialidadeDAO.listar());
 		
+		cidade = new Cidade();
 		cidades = new ArrayList<>();
 		cidades.addAll(cidadeDAO.listar());
 	}
 	
 	public void buscarMedicos() {
-		medicos = medicoService.listar(nome, idEspecialidade, idCidade);
+		medicos = medicoService.listar(nome, especialidade.getId(), cidade.getId());
 	}
 	
 	public List<Especialidade> completeEspecialidades(String nomeEspecialidade) {
@@ -72,14 +75,15 @@ public class BuscarMedicosController implements Serializable {
 							 .collect(Collectors.toList());
 	}
 	
-	public void especilidadeSelecionada(SelectEvent event) {
+	public void especialidadeSelecionada(SelectEvent event) {
         System.out.println(idEspecialidade);
         
-        medicos = medicoService.listar(nome, idEspecialidade, idCidade);
+        medicos = medicoService.listar(nome, especialidade.getId(), cidade.getId());
     }
 	
-	public void campoEspecialidadeMudou(AjaxBehaviorEvent ev) {
-		medicos = medicoService.listar(nome, idEspecialidade, idCidade);
+	public void limparCampoEspecialidade() {
+		especialidade = new Especialidade();
+		medicos = medicoService.listar(nome, especialidade.getId(), cidade.getId());
 	}
 	
 	public List<Cidade> completeCidades(String nomeCidade) {
@@ -91,10 +95,13 @@ public class BuscarMedicosController implements Serializable {
 	}
 	
 	public void cidadeSelecionada(SelectEvent event) {
-        System.out.println("Cidade: " + idCidade);
-        
-        medicos = medicoService.listar(nome, idEspecialidade, idCidade);
+        medicos = medicoService.listar(nome, especialidade.getId(), cidade.getId());
     }
+	
+	public void limparCampoCidade() {
+		cidade = new Cidade();
+		medicos = medicoService.listar(nome, especialidade.getId(), cidade.getId());
+	}
 	
 	public List<Especialidade> getEspecialidades() {
 		return especialidades;
@@ -112,6 +119,14 @@ public class BuscarMedicosController implements Serializable {
 		this.nome = nome;
 	}
 
+	public Especialidade getEspecialidade() {
+		return especialidade;
+	}
+
+	public void setEspecialidade(Especialidade especialidade) {
+		this.especialidade = especialidade;
+	}
+
 	public Integer getIdEspecialidade() {
 		return idEspecialidade;
 	}
@@ -122,6 +137,14 @@ public class BuscarMedicosController implements Serializable {
 	
 	public List<Cidade> getCidades() {
 		return cidades;
+	}
+
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
 	}
 
 	public Integer getIdCidade() {
