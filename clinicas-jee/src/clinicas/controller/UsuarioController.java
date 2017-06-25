@@ -41,12 +41,11 @@ public class UsuarioController implements Serializable {
 	}
 
 	public void salvar() {
+		if (!verificarCadastro()) return;
+		
 		FacesContext context = FacesContext.getCurrentInstance();
 		
 		try {
-			if (senha == null || senha.trim().isEmpty()) {
-				throw new IllegalArgumentException("O campo senha é obrigatório no cadastro de Usuário.");
-			}
 			
 			usuario.setSenha(senha.trim());
 			service.salvar(usuario);
@@ -55,8 +54,31 @@ public class UsuarioController implements Serializable {
 			context.addMessage(null, new FacesMessage("Usuário criado com sucesso."));
 			
 		} catch (Exception e) {
-			context.addMessage(null, new FacesMessage(e.getMessage()));
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro no cadastro", e.getMessage()));
 		}
+	}
+
+	private boolean verificarCadastro() {
+		boolean retorno = true;
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		if (usuario.getNome() == null || usuario.getNome().trim().isEmpty()) {
+			retorno = false;
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de validação", "O campo nome é obrigatório."));
+		}
+		
+		if (usuario.getEmail() == null || usuario.getEmail().trim().isEmpty()) {
+			retorno = false;
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de validação", "O campo email é obrigatório."));
+		}
+		
+		if (usuario.getId() == null && (senha == null || senha.trim().isEmpty())) {
+			retorno = false;
+			context.addMessage(null, 
+				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de validação", "O campo senha é obrigatório no cadastro de Usuário."));
+		}
+		
+		return retorno;
 	}
 
 	public void editar() {
