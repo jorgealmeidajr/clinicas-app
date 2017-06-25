@@ -36,7 +36,7 @@
 	
 	<div id="content">
 		<p:outputPanel id="menu-panel" styleClass="hide-menu-panel">
-			<h:form rendered="#{loginController.usuarioLogado}">
+			<h:form id="menu-form" rendered="#{loginController.usuarioLogado}">
 			
 				<div style="height: 170px; width: 100%; background-color: white;">
 					<div style="height: 40px; width: 100%;background-color: rgb(63, 40, 72);">
@@ -49,6 +49,8 @@
 						cache="false"
 						styleClass="foto-usuario">
 					</p:graphicImage>
+					
+					<h:graphicImage value="img/person-icon.png" rendered="#{loginController.usuario.foto == null}" styleClass="foto-usuario" />
 					
 					<p:tooltip for="foto-usuario-logado" position="right" showEffect="clip" style="width: 250px;">
 						Nome: <h:outputText value="#{loginController.usuario.nome}" />

@@ -88,7 +88,17 @@ public class UsuarioController implements Serializable {
 	}
 	
 	public void atualizar() {
-		service.atualizar(usuario, senha);
+		if (!verificarCadastro()) return;
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		try {
+			service.atualizar(usuario, senha);
+			context.addMessage(null, new FacesMessage("Usuário atualizado com sucesso."));
+			
+		} catch (Exception e) {
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro no cadastro", e.getMessage()));
+		}
 	}
 	
 	public void handleImagemUpload(FileUploadEvent event) {		
