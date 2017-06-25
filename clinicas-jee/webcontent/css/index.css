@@ -232,6 +232,12 @@ body {
   margin: 1px auto 1px auto;
 }
 
+.table-input-editable {
+	width: 90%;
+	margin-left: 5px;
+	margin-right: 15px;
+}
+
 .label {
 	font-size: 15px;
   float: right;

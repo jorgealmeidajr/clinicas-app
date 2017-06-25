@@ -28,9 +28,18 @@
 			<div class="ui-g">
 		    <div class="ui-g-2"><span class="label">Estado CRM : </span></div>
 		    <div class="ui-g-4">
-		    	<p:selectOneMenu value="#{medicoController.parametrosBusca.estadoCrm.id}" style="width: 200px;">
-            <f:selectItems value="#{medicoController.estados}" var="e" itemLabel="#{e.nome}" itemValue="#{e.id}" />
-        	</p:selectOneMenu>
+		    	<p:autoComplete 
+		    		queryDelay="500"
+		    		dropdown="true" forceSelection="true"
+		    		value="#{medicoController.parametrosBusca.estadoCrm}" 
+		    		completeMethod="#{medicoController.completeEstados}"
+		    		converter="#{estadoConverter}"
+		    		var="e" itemLabel="#{e.nome}" itemValue="#{e}"
+		    		scrollHeight="150">
+		    		<p:column>
+							<h:outputText value="#{e.nome}" />
+						</p:column>
+		    	</p:autoComplete>
 		    </div>
 		    
 		    <div class="ui-g-2"><span class="label">Especialidade : </span></div>
@@ -93,24 +102,50 @@
     <p:ajax event="rowEditCancel" listener="#{medicoController.onRowCancel}" />
 		
 		<p:column headerText="Foto" width="110" resizable="false">
-			<p:graphicImage value="/images/medicos?id=#{m.id}" height="100" cache="false" styleClass="table-image" />
+			<h:graphicImage value="img/person-icon.png" rendered="#{m.foto == null}" height="100" styleClass="table-image" />
+			
+			<p:graphicImage 
+				value="/images/medicos?id=#{m.id}" 
+				rendered="#{m.foto != null}" 
+				height="100" cache="false" 
+				styleClass="table-image" />
 		</p:column>
 		
 		<p:column headerText="Nome">
 			<p:cellEditor>
-				<f:facet name="output"><h:outputText value="#{m.nome}" /></f:facet>
-				<f:facet name="input"><p:inputText value="#{m.nome}" style="width:100%" label="Nome"/></f:facet>
+				<f:facet name="output">
+					<h:outputText value="#{m.nome}" />
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{m.nome}" styleClass="table-input-editable" label="Nome"/>
+				</f:facet>
 			</p:cellEditor>
 		</p:column>
 		
 		<p:column headerText="CPF" width="150" resizable="false">
-			<h:outputText value="#{m.cpf}" />
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{m.cpf}" />	
+				</f:facet>
+				<f:facet name="input">
+					<p:inputMask value="#{m.cpf}" mask="999.999.999-99" styleClass="table-input-editable" />
+				</f:facet>
+			</p:cellEditor>
 		</p:column>
+		
 		<p:column headerText="Especialidade" width="200">
 			<h:outputText value="#{m.especialidade.nome}" />
 		</p:column>
+		
 		<p:column headerText="Telefone" width="150" resizable="false">
-			<h:outputText value="#{m.telefone}" />
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{m.telefone}" />	
+				</f:facet>
+				<f:facet name="input">
+					<p:inputMask value="#{m.telefone}" mask="(99)9999-9999" styleClass="table-input-editable" />
+				</f:facet>
+			</p:cellEditor>
 		</p:column>
 		
 		<p:column headerText="" width="100" resizable="false">

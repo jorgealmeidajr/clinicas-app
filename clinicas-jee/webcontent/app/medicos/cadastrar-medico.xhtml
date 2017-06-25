@@ -8,10 +8,13 @@
 
 	<script type="text/javascript">
 	function handleDialogSubmit(xhr, status, args) {
+		let estadoCadastroValue = $('#estadoCadastro').val().trim();
+
 		if (args.validationFailed) {
 		//dialog.show();
 		} else {
-			PF('cadMedicoDialog').hide();
+			if(estadoCadastroValue !== 'erro_validacao')
+				PF('cadMedicoDialog').hide();
 		}
 	}
 	</script>
@@ -27,7 +30,9 @@
 			<h:outputText value="Cadastro de Médico" style="color: white;" />
 		</f:facet>
 		
-		<h:form id="cadMedicoForm">
+		<h:form id="cadMedicoForm" prependId="false">
+			<h:inputHidden id="estadoCadastro" value="#{medicoController.estadoCadastro}" />
+		
 			<div class="ui-g">
 		    <div class="ui-g-4"><span class="label">Nome * : </span></div>
 		    <div class="ui-g-8">
@@ -41,12 +46,22 @@
 		  <div class="ui-g">
 		  	<div class="ui-g-4"><span class="label">Especialidade * : </span></div>
 		    <div class="ui-g-8">
-		    	<p:selectOneMenu 
-		    		value="#{medicoController.entidadeCadastro.especialidade.id}" 
-		    		style="width: 200px;"
+		    
+		    	<p:autoComplete 
+		    		queryDelay="500"
+		    		dropdown="true" forceSelection="true"
+		    		value="#{medicoController.entidadeCadastro.especialidade}" 
+		    		completeMethod="#{medicoController.completeEspecialidades}"
+		    		converter="#{especialidadeConverter}"
+		    		var="e" itemLabel="#{e.nome}" itemValue="#{e}"
+		    		scrollHeight="150"
 		    		required="true" requiredMessage="O campo Especialidade é obrigatório.">
-            <f:selectItems value="#{medicoController.especialidades}" var="e" itemLabel="#{e.nome}" itemValue="#{e.id}" />
-        	</p:selectOneMenu>
+		    		<p:column>
+							<h:outputText value="#{e.nome}" />
+						</p:column>
+		    	</p:autoComplete>
+		    
+		    	
 		    </div>
 		  </div>
 
@@ -75,9 +90,18 @@
 		  <div class="ui-g">
 		  	<div class="ui-g-4"><span class="label">Estado CRM : </span></div>
 		    <div class="ui-g-8">
-		    	<p:selectOneMenu value="#{medicoController.entidadeCadastro.estadoCrm.id}" style="width: 200px;">
-            <f:selectItems value="#{medicoController.estados}" var="e" itemLabel="#{e.nome}" itemValue="#{e.id}" />
-        	</p:selectOneMenu>
+		    	<p:autoComplete 
+		    		queryDelay="500"
+		    		dropdown="true" forceSelection="true"
+		    		value="#{medicoController.entidadeCadastro.estadoCrm}" 
+		    		completeMethod="#{medicoController.completeEstados}"
+		    		converter="#{estadoConverter}"
+		    		var="e" itemLabel="#{e.nome}" itemValue="#{e}"
+		    		scrollHeight="150">
+		    		<p:column>
+							<h:outputText value="#{e.nome}" />
+						</p:column>
+		    	</p:autoComplete>
 		    </div>
 		  </div>
 		  
@@ -122,10 +146,8 @@
 		      	value="Salvar" 
 		      	actionListener="#{medicoController.salvar}" 
 		      	icon="ui-icon-disk"
-		      	rendered="#{medicoController.entidadeCadastro.id == null}"
-		      	
-		      	oncomplete="handleDialogSubmit(xhr, status, args)"
-		      	
+		      	rendered="#{medicoController.entidadeCadastro.id == null}"		      	
+		      	oncomplete="handleDialogSubmit(xhr, status, args)"		      	
 		      	update="medicos, cadMedicoForm"
 		      	styleClass="btn" />
 		      	

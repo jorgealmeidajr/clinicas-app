@@ -2,11 +2,11 @@ package clinicas.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.faces.view.ViewScoped;
@@ -33,6 +33,8 @@ public class MedicoController implements Serializable {
 	private static final long serialVersionUID = 2944813252524122584L;
 
 	private Medico parametrosBusca;
+	
+	private String estadoCadastro; 
 	private Medico entidadeCadastro;
 	
 	private List<Medico> medicos;
@@ -56,13 +58,9 @@ public class MedicoController implements Serializable {
 		
 		medicos = service.listar();
 		
-		iniciarEstados();
+		estados = estadoDao.listar();
 		
-		estados.addAll(estadoDao.listar());
-		
-		iniciarEspecialidades();
-		
-		especialidades.addAll(especialidadeDao.listar());
+		especialidades = especialidadeDao.listar();
 	}
 
 	private void iniciarParametrosBusca() {
@@ -73,32 +71,12 @@ public class MedicoController implements Serializable {
 		parametrosBusca.setEstadoCrm(new Estado());
 	}
 
-	private void iniciarEspecialidades() {
-		especialidades = new ArrayList<>();
-		
-		Especialidade e = new Especialidade();
-		e.setNome("Selecione");
-		e.setId(-1);
-		
-		especialidades.add(e);
-	}
-
-	private void iniciarEstados() {
-		estados = new ArrayList<>();
-		
-		Estado e = new Estado();
-		e.setNome("Selecione");
-		e.setId(-1);
-		
-		estados.add(e);
-	}
-	
 	public void pesquisar() {
 		if(parametrosBusca.getEspecialidade() == null)
 			parametrosBusca.setEspecialidade(new Especialidade());
 		
-		if(parametrosBusca.getEstadoCrm().getId() != null && parametrosBusca.getEstadoCrm().getId() == -1)
-			parametrosBusca.getEstadoCrm().setId(null);
+		if(parametrosBusca.getEstadoCrm() == null)
+			parametrosBusca.setEstadoCrm(new Estado());
 		
 		medicos = service.listar(parametrosBusca);
 	}
@@ -116,13 +94,62 @@ public class MedicoController implements Serializable {
 	}
 	
 	public void salvar() {
-		service.salvar(entidadeCadastro);
+		if (!verificarCadastro()) return;
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		try {
+			service.salvar(entidadeCadastro);
+			context.addMessage(null, new FacesMessage("Médico salvo com sucesso."));
+			
+		} catch (Exception e) {
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro no cadastro", e.getMessage()));
+		}
 		
 		pesquisar();
 	}
 	
+	private boolean verificarCadastro() {
+		boolean retorno = true;
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		if (entidadeCadastro.getNome() == null || entidadeCadastro.getNome().trim().isEmpty()) {
+			retorno = false;
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de validação", "O campo nome é obrigatório."));
+		}
+		
+		if (entidadeCadastro.getEspecialidade() == null 
+			|| entidadeCadastro.getEspecialidade().getId() == null) {
+			retorno = false;
+			context.addMessage(null, 
+				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de validação", "O campo especialidade é obrigatório."));
+		}
+		
+		if (!retorno) {
+			estadoCadastro = "erro_validacao";
+		}
+		
+		return retorno;
+	}
+	
+	public List<Estado> completeEstados(String nomeEstado) {
+		final String nome = nomeEstado.trim().toLowerCase();
+		
+		return estados.stream()
+					  .filter(c -> c.getNome().toLowerCase().contains(nome))
+					  .collect(Collectors.toList());
+	}
+
 	public void atualizar() {
-		service.atualizar(entidadeCadastro);
+		if (!verificarCadastro()) return;
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		try {
+			service.atualizar(entidadeCadastro);
+			context.addMessage(null, new FacesMessage("Médico atualizado com sucesso."));
+			
+		} catch (Exception e) {
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro no cadastro", e.getMessage()));
+		}
 		
 		pesquisar();
 	}
@@ -196,6 +223,14 @@ public class MedicoController implements Serializable {
 
 	public List<Especialidade> getEspecialidades() {
 		return especialidades;
+	}
+
+	public String getEstadoCadastro() {
+		return estadoCadastro;
+	}
+
+	public void setEstadoCadastro(String estadoCadastro) {
+		this.estadoCadastro = estadoCadastro;
 	}
 	
 }
