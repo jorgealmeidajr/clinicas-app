@@ -96,6 +96,7 @@
 		id="medicos" 
 		value="#{medicoController.medicos}" var="m" 
 		scrollable="true" scrollHeight="790"
+		emptyMessage="Nenhum médico encontrado com os parâmetros informados."
 		editable="true">
 		
 		<p:ajax event="rowEdit" listener="#{medicoController.onRowEdit}" /><!-- update=":form:msgs" -->

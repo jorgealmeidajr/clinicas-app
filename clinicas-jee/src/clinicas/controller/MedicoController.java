@@ -19,8 +19,10 @@ import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
+import clinicas.dao.ClinicaDAO;
 import clinicas.dao.EspecialidadeDAO;
 import clinicas.dao.EstadoDAO;
+import clinicas.model.Clinica;
 import clinicas.model.Especialidade;
 import clinicas.model.Estado;
 import clinicas.model.Medico;
@@ -49,6 +51,8 @@ public class MedicoController implements Serializable {
 	private EstadoDAO estadoDao;
 	@Inject
 	private EspecialidadeDAO especialidadeDao;
+	@Inject
+	private ClinicaDAO clinicaDao;
 	
 	@PostConstruct
 	public void init() {
@@ -121,7 +125,14 @@ public class MedicoController implements Serializable {
 			|| entidadeCadastro.getEspecialidade().getId() == null) {
 			retorno = false;
 			context.addMessage(null, 
-				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de validação", "O campo especialidade é obrigatório."));
+				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de validação", "O campo Especialidade é obrigatório."));
+		}
+		
+		if (entidadeCadastro.getClinica() == null 
+			|| entidadeCadastro.getClinica().getId() == null) {
+			retorno = false;
+			context.addMessage(null, 
+				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de validação", "O campo Clínica é obrigatório."));
 		}
 		
 		if (!retorno) {
@@ -180,6 +191,15 @@ public class MedicoController implements Serializable {
 		return especialidades.stream()
 							 .filter(e -> e.getNome().toLowerCase().contains(nome))
 							 .collect(Collectors.toList());
+	}
+	
+	public List<Clinica> completeClinicas(String nomeClinica) {
+		final String nome = nomeClinica.trim().toLowerCase();
+		
+		return clinicaDao.listar()
+						 .stream()
+						 .filter(e -> e.getRazaoSocial().toLowerCase().contains(nome))
+						 .collect(Collectors.toList());
 	}
 	
 	public void handleImagemUpload(FileUploadEvent event) {

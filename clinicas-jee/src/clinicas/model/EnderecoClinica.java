@@ -2,11 +2,14 @@ package clinicas.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,9 +19,29 @@ public class EnderecoClinica implements Serializable {
 	private static final long serialVersionUID = -2419769621160928799L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id_endereco")
-	private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_endereco", nullable = false)
+    private Integer id;
+	
+    @Column(name = "rua", length = 255)
+    private String rua;
+    
+    @Column(name = "bairro", length = 55)
+    private String bairro;
+    
+    @Column(name = "numero")
+    private Integer numero;
+    
+    @Column(name = "complemento", length = 55)
+    private String complemento;
+    
+    @Column(name = "cep")
+    private String cep;
+    
+    @JoinColumn(name = "id_cidade", referencedColumnName = "id_cidade")
+    @ManyToOne
+    private Cidade idCidade;
 
 	public Integer getId() {
 		return id;

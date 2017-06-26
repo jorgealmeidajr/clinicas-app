@@ -53,6 +53,10 @@ public class Medico implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_especialidade", referencedColumnName = "id_especialidade")
 	private Especialidade especialidade;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_clinica", referencedColumnName = "id_clinica")
+	private Clinica clinica;
 
 	public Integer getId() {
 		return id;
@@ -124,6 +128,14 @@ public class Medico implements Serializable {
 
 	public void setEspecialidade(Especialidade especialidade) {
 		this.especialidade = especialidade;
+	}
+
+	public Clinica getClinica() {
+		return clinica;
+	}
+
+	public void setClinica(Clinica clinica) {
+		this.clinica = clinica;
 	}
 
 	@Override

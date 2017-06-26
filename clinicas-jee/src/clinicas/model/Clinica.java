@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,7 +18,7 @@ public class Clinica implements Serializable {
 	private static final long serialVersionUID = -694779838693623304L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_clinica")
 	private Integer id;
 	
@@ -34,6 +36,10 @@ public class Clinica implements Serializable {
 	
 	@Column(name = "atende_sus")
 	private Boolean atendeSus;
+	
+	@JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco", nullable = false)
+    @ManyToOne(optional = false)
+    private EnderecoClinica endereco;
 
 	public Integer getId() {
 		return id;
@@ -81,6 +87,14 @@ public class Clinica implements Serializable {
 
 	public void setAtendeSus(Boolean atendeSus) {
 		this.atendeSus = atendeSus;
+	}
+
+	public EnderecoClinica getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(EnderecoClinica endereco) {
+		this.endereco = endereco;
 	}
 
 	@Override

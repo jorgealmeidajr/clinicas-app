@@ -45,8 +45,7 @@
 		  
 		  <div class="ui-g">
 		  	<div class="ui-g-4"><span class="label">Especialidade * : </span></div>
-		    <div class="ui-g-8">
-		    
+		    <div class="ui-g-8">		    
 		    	<p:autoComplete 
 		    		queryDelay="500"
 		    		dropdown="true" forceSelection="true"
@@ -60,8 +59,25 @@
 							<h:outputText value="#{e.nome}" />
 						</p:column>
 		    	</p:autoComplete>
-		    
-		    	
+		    </div>
+		  </div>
+		  
+		  <div class="ui-g">
+		  	<div class="ui-g-4"><span class="label">Clínica * : </span></div>
+		    <div class="ui-g-8">
+		    	<p:autoComplete 
+		    		queryDelay="500"
+		    		dropdown="true" forceSelection="true"
+		    		value="#{medicoController.entidadeCadastro.clinica}" 
+		    		completeMethod="#{medicoController.completeClinicas}"
+		    		converter="#{clinicaConverter}"
+		    		var="e" itemLabel="#{e.razaoSocial}" itemValue="#{e}"
+		    		scrollHeight="150"
+		    		required="true" requiredMessage="O campo Clínica é obrigatório.">
+		    		<p:column>
+							<h:outputText value="#{e.razaoSocial}" />
+						</p:column>
+		    	</p:autoComplete>
 		    </div>
 		  </div>
 

@@ -10,6 +10,7 @@
 
 		<class>clinicas.model.Usuario</class>
 		<class>clinicas.model.Estado</class>
+		<class>clinicas.model.Cep</class>
 		<class>clinicas.model.Cidade</class>
 		<class>clinicas.model.Especialidade</class>
 		<class>clinicas.model.Medico</class>
