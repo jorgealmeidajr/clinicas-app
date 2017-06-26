@@ -12,8 +12,11 @@ public class ClinicaDAO extends GenericDAO<Clinica> {
 
 	public List<Clinica> listar() {
 		TypedQuery<Clinica> q = em.createQuery(
-			"select c from Clinica c " 
-		  + "order by c.razaoSocial", Clinica.class);
+			"select cli from Clinica cli "
+		  + "left join fetch cli.endereco e "
+		  + "left join fetch e.cidade cid "
+		  + "left join fetch cid.estado " 
+		  + "order by cli.razaoSocial", Clinica.class);
 
 		return q.getResultList();
 	}

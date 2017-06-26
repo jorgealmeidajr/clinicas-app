@@ -2,8 +2,151 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 <ui:composition>
-listar clinicas...
+<div>
+	<div style="height:40px; width:100%; background-color: rgb(63, 40, 72);">
+		<h3 style="color: white; margin: 0; padding: 7px;">Listagem de Clínicas</h3>
+	</div>
+		
+	<h:form>
+		<div class="search-container">
+			<div class="ui-g">
+		    <div class="ui-g-2"><span class="label">Razão Social : </span></div>
+		    <div class="ui-g-4">
+		    	<p:inputText value="#{clinicasController.parametrosBusca.razaoSocial}" style="width: 226px;" />
+		    </div>
+		    <div class="ui-g-2"><span class="label">CNPJ : </span></div>
+		    <div class="ui-g-4">
+		    	<p:inputText value="#{clinicasController.parametrosBusca.cnpj}" style="width: 226px;" />
+		    </div>
+		  </div>
+		  
+		  <div class="ui-g">
+		    <div class="ui-g-2"><span class="label">Cidade : </span></div>
+		    <div class="ui-g-4">
+		    	<p:inputText value="#{clinicasController.parametrosBusca.razaoSocial}" style="width: 226px;" />
+		    </div>
+		  </div>
+		  
+		  <div class="ui-g">
+				<div class="ui-g-6"></div>
+				
+				<div class="ui-g-6" style="text-align: right;">
+					<p:commandButton 
+						value="Limpar" 
+						actionListener="#{clinicasController.limparBusca}" 
+						update="@form, clinicas"
+						styleClass="btn" />
+					
+					<p:commandButton 
+						value="Pesquisar" 
+						actionListener="#{clinicasController.pesquisar}" 
+						update="clinicas"
+						styleClass="btn" />
+					
+					<p:commandButton 
+						value="Cadastrar" 
+						actionListener="#{clinicasController.iniciarCadastro}"
+						immediate="true"
+						update="cadClinicaForm"
+						oncomplete="PF('cadClinicaDialog').show();"
+						styleClass="btn btn-cadastrar"
+						style="margin-right: 30px;" />
+				</div>
+			</div>
+		</div>
+	</h:form>
+	
+	<h:form prependId="false">
+		<p:dataTable 
+			id="clinicas" 
+			value="#{clinicasController.entidades}" var="clinica" 
+			scrollable="true" scrollHeight="790"
+			emptyMessage="Nenhuma clínica encontrada com os parâmetros informados."
+			editable="true">
+			
+			<p:ajax event="rowEdit" listener="#{clinicasController.onRowEdit}" />
+	    <p:ajax event="rowEditCancel" listener="#{clinicasController.onRowCancel}" />
+	    
+	    <p:column headerText="Razão Social">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{clinica.razaoSocial}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{clinica.razaoSocial}" styleClass="table-input-editable" label="Razão Social"/>
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			
+			<p:column headerText="Cidade">
+				<h:outputText value="#{clinica.endereco.cidade.nome} / #{clinica.endereco.cidade.estado.nome}" />
+			</p:column>
+			
+			<p:column headerText="CNPJ" width="150" resizable="false">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{clinica.cnpj}" />	
+					</f:facet>
+					<f:facet name="input">
+						<p:inputMask value="#{clinica.cnpj}" mask="99.999.999/9999-99" styleClass="table-input-editable" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			
+			<p:column headerText="Telefone" width="150" resizable="false">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{clinica.telefone}" />	
+					</f:facet>
+					<f:facet name="input">
+						<p:inputMask value="#{clinica.telefone}" mask="(99)9999-9999" styleClass="table-input-editable" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			
+			<p:column headerText="Email" width="220" resizable="false">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{clinica.email}" />	
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{clinica.email}" styleClass="table-input-editable" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			
+			<p:column headerText="" width="100" resizable="false">
+				<p:commandButton 
+					update="cadClinicaForm" 
+					oncomplete="PF('cadClinicaDialog').show();" 
+					icon="ui-icon-search"
+					styleClass="btn-table">
+					<f:setPropertyActionListener value="#{clinica}" target="#{clinicasController.entidadeCadastro}" />
+				</p:commandButton>
+				
+				<p:commandButton 
+					update="clinicas" 
+					actionListener="#{clinicasController.excluir(clinica)}" 
+					icon="ui-icon-circle-close"
+					styleClass="btn-table">
+					<p:confirm header="Exclusão da Clínica" message="Deseja mesmo remover a clínica #{m.nome}?" icon="ui-icon-alert" />
+				</p:commandButton>
+			</p:column>
+			
+			<p:column style="width:40px;">
+				<p:rowEditor />
+			</p:column>
+		</p:dataTable>
+		
+		<h:inputHidden id="cadClinicaForm" />
+		
+	</h:form>
+</div>
+
+
+
 </ui:composition>
 </html>
