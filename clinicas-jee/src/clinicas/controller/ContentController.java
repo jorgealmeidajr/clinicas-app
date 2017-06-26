@@ -30,6 +30,10 @@ public class ContentController implements Serializable {
 	public void exibirListarMedicos() {
 		paginaAtual = "app/medicos/listar-medicos.xhtml";
 	}
+	
+	public void exibirListarClinicas() {
+		paginaAtual = "app/clinicas/listar-clinicas.xhtml";
+	}
 
 	public String getPaginaAtual() {
 		return paginaAtual;
