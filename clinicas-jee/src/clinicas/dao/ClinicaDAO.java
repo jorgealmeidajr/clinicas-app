@@ -20,5 +20,17 @@ public class ClinicaDAO extends GenericDAO<Clinica> {
 
 		return q.getResultList();
 	}
+	
+	@Override
+	public void salvar(Clinica clinica) {
+		em.persist(clinica.getEndereco());
+		em.persist(clinica);
+	}
+	
+	@Override
+	public void atualizar(Clinica clinica) {
+		em.merge(clinica.getEndereco());
+		em.merge(clinica);
+	}
 
 }

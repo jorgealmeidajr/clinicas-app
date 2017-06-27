@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+
+<script type="text/javascript">
+function handleDialogSubmit(xhr, status, args) {
+	let estadoCadastroValue = $('#estadoCadastro').val().trim();
+
+	if (args.validationFailed) {
+		//dialog.show();
+	} else {
+		if(estadoCadastroValue !== 'erro_validacao')
+			PF('cadClinicaDialog').hide();
+	}
+}
+</script>
+
+<p:dialog 
+	id="cadClinicaDialog" widgetVar="cadClinicaDialog" width="900"
+	resizable="false" draggable="false" modal="true" 
+	showEffect="clip" hideEffect="fold" 
+	styleClass="dialog">
+	<f:facet name="header">
+		<h:outputText value="Cadastro de Clínica" style="color: white;" />
+	</f:facet>
+
+	<h:form id="cadClinicaForm" prependId="false">
+		<h:inputHidden id="estadoCadastro" value="#{clinicasController.estadoCadastro}" />
+
+		<div class="ui-g">
+			<div class="ui-g-4">
+				<span class="label">Razão Social * : </span>
+			</div>
+			<div class="ui-g-8">
+				<p:inputText 
+					value="#{clinicasController.entidadeCadastro.razaoSocial}"
+					style="width: 226px;" 
+					required="true" requiredMessage="O campo Razão Social é obrigratório." />
+			</div>
+		</div>
+
+		<div class="ui-g">
+			<div class="ui-g-4">
+				<span class="label">CNPJ : </span>
+			</div>
+			<div class="ui-g-8">
+				<p:inputMask value="#{clinicasController.entidadeCadastro.cnpj}" style="width: 226px;" mask="99.999.999/9999-99" />
+			</div>
+		</div>
+
+		<div class="ui-g">
+			<div class="ui-g-4">
+				<span class="label">Telefone : </span>
+			</div>
+			<div class="ui-g-8">
+				<p:inputMask value="#{clinicasController.entidadeCadastro.telefone}" style="width: 226px;" mask="(99)9999-9999" />
+			</div>
+		</div>
+
+		<div class="ui-g">
+			<div class="ui-g-4">
+				<span class="label">Email * : </span>
+			</div>
+			<div class="ui-g-8">
+				<p:inputText value="#{clinicasController.entidadeCadastro.email}" style="width: 226px;" validator="emailValidator" />
+			</div>
+		</div>
+
+		<div class="ui-g">
+			<div class="ui-g-4">
+				<span class="label">Atende ao SUS : </span>
+			</div>
+			<div class="ui-g-8">
+				<p:inputSwitch value="#{clinicasController.entidadeCadastro.atendeSus}" onLabel="Sim" offLabel="Não" />
+			</div>
+		</div>
+		
+		<h2>Dados do Endereço da Clínica</h2>
+		
+		<div class="ui-g">
+			<div class="ui-g-2">
+				<span class="label">CEP : </span>
+			</div>
+			<div class="ui-g-10">
+				<p:inputText value="#{clinicasController.entidadeCadastro.endereco.cep}" />
+			</div>
+		</div>
+		
+		<div class="ui-g">
+			<div class="ui-g-2">
+				<span class="label">Rua : </span>
+			</div>
+			<div class="ui-g-4">
+				<p:inputText value="#{clinicasController.entidadeCadastro.endereco.rua}" style="width: 100%;" />
+			</div>
+			
+			<div class="ui-g-2">
+				<span class="label">Bairro : </span>
+			</div>
+			<div class="ui-g-4">
+				<p:inputText value="#{clinicasController.entidadeCadastro.endereco.bairro}" />
+			</div>
+		</div>
+		
+		<div class="ui-g">
+			<div class="ui-g-2">
+				<span class="label">Número : </span>
+			</div>
+			<div class="ui-g-4">
+				<p:inputText value="#{clinicasController.entidadeCadastro.endereco.numero}" />
+			</div>
+			
+			<div class="ui-g-2">
+				<span class="label">Complemento : </span>
+			</div>
+			<div class="ui-g-4">
+				<p:inputText value="#{clinicasController.entidadeCadastro.endereco.complemento}" />
+			</div>
+		</div>
+
+		<div class="ui-g">
+			<div class="ui-g-2">
+				<span class="label">Estado : </span>
+			</div>
+			<div class="ui-g-4">
+				<p:autoComplete 
+					queryDelay="500" dropdown="true"
+					forceSelection="true"
+					value="#{clinicasController.estado}"
+					completeMethod="#{clinicasController.completeEstados}"
+					converter="#{estadoConverter}" var="e" itemLabel="#{e.nome}"
+					itemValue="#{e}" scrollHeight="150">
+					<p:column>
+						<h:outputText value="#{e.nome}" />
+					</p:column>
+					
+					<p:ajax event="itemSelect" update="@form" listener="#{clinicasController.estadoSelecionado}" process="@form" />
+				</p:autoComplete>
+			</div>
+			
+			<div class="ui-g-2">
+				<span class="label">Cidade : </span>
+			</div>
+			<div class="ui-g-4">
+				<p:autoComplete 
+					queryDelay="500" dropdown="true"
+					forceSelection="true"
+					value="#{clinicasController.entidadeCadastro.endereco.cidade}"
+					completeMethod="#{clinicasController.completeCidadesCadastro}"
+					converter="#{cidadeConverter}" var="e" itemLabel="#{e.nome}"
+					itemValue="#{e}" scrollHeight="150">
+					<p:column>
+						<h:outputText value="#{e.nome}" />
+					</p:column>
+				</p:autoComplete>
+			</div>
+		</div>
+
+		<div class="ui-g">
+			<div class="ui-g-12">
+				<p:commandButton value="Cancelar" icon="ui-icon-closethick"
+					onclick="PF('cadClinicaDialog').hide();" immediate="true"
+					styleClass="btn btn-cancelar" />
+
+				<p:commandButton value="Salvar"
+					actionListener="#{clinicasController.salvar}" icon="ui-icon-disk"
+					rendered="#{clinicasController.entidadeCadastro.id == null}"
+					oncomplete="handleDialogSubmit(xhr, status, args)"
+					update="clinicas, cadClinicaForm" styleClass="btn" />
+
+				<p:commandButton value="Atualizar"
+					actionListener="#{clinicasController.atualizar}" icon="ui-icon-disk"
+					rendered="#{clinicasController.entidadeCadastro.id != null}"
+					oncomplete="PF('cadClinicaDialog').hide();" update="clinicas"
+					styleClass="btn" />
+			</div>
+		</div>
+
+	</h:form>
+
+</p:dialog>
+</ui:composition>
+</html>

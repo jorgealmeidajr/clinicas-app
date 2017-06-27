@@ -17,6 +17,7 @@
 		    <div class="ui-g-4">
 		    	<p:inputText value="#{clinicasController.parametrosBusca.razaoSocial}" style="width: 226px;" />
 		    </div>
+		    
 		    <div class="ui-g-2"><span class="label">CNPJ : </span></div>
 		    <div class="ui-g-4">
 		    	<p:inputText value="#{clinicasController.parametrosBusca.cnpj}" style="width: 226px;" />
@@ -26,7 +27,21 @@
 		  <div class="ui-g">
 		    <div class="ui-g-2"><span class="label">Cidade : </span></div>
 		    <div class="ui-g-4">
-		    	<p:inputText value="#{clinicasController.parametrosBusca.razaoSocial}" style="width: 226px;" />
+		    	<p:autoComplete 
+		    		queryDelay="500"
+		    		dropdown="true" forceSelection="true"
+		    		value="#{clinicasController.parametrosBusca.endereco.cidade}" 
+		    		completeMethod="#{clinicasController.completeCidades}"
+		    		converter="#{cidadeConverter}"
+		    		var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade}"
+		    		scrollHeight="150">
+		    		<p:column>
+							<h:outputText value="#{cidade.nome}" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{cidade.estado.sigla}" />
+						</p:column>
+		    	</p:autoComplete>
 		    </div>
 		  </div>
 		  
@@ -82,7 +97,9 @@
 			</p:column>
 			
 			<p:column headerText="Cidade">
-				<h:outputText value="#{clinica.endereco.cidade.nome} / #{clinica.endereco.cidade.estado.nome}" />
+				<h:outputText 
+					value="#{clinica.endereco.cidade.nome} / #{clinica.endereco.cidade.estado.nome}" 
+					rendered="#{clinica.endereco.cidade != null}"/>
 			</p:column>
 			
 			<p:column headerText="CNPJ" width="150" resizable="false">
@@ -96,7 +113,7 @@
 				</p:cellEditor>
 			</p:column>
 			
-			<p:column headerText="Telefone" width="150" resizable="false">
+			<p:column headerText="Telefone" width="120" resizable="false">
 				<p:cellEditor>
 					<f:facet name="output">
 						<h:outputText value="#{clinica.telefone}" />	
@@ -113,12 +130,12 @@
 						<h:outputText value="#{clinica.email}" />	
 					</f:facet>
 					<f:facet name="input">
-						<p:inputText value="#{clinica.email}" styleClass="table-input-editable" />
+						<p:inputText value="#{clinica.email}" validator="emailValidator" styleClass="table-input-editable" />
 					</f:facet>
 				</p:cellEditor>
 			</p:column>
 			
-			<p:column headerText="" width="100" resizable="false">
+			<p:column headerText="" width="80" resizable="false">
 				<p:commandButton 
 					update="cadClinicaForm" 
 					oncomplete="PF('cadClinicaDialog').show();" 
@@ -132,21 +149,23 @@
 					actionListener="#{clinicasController.excluir(clinica)}" 
 					icon="ui-icon-circle-close"
 					styleClass="btn-table">
-					<p:confirm header="Exclusão da Clínica" message="Deseja mesmo remover a clínica #{m.nome}?" icon="ui-icon-alert" />
+					<p:confirm header="Exclusão da Clínica" message="Deseja mesmo remover a clínica #{clinica.razaoSocial}?" icon="ui-icon-alert" />
 				</p:commandButton>
 			</p:column>
 			
-			<p:column style="width:40px;">
+			<p:column style="width:30px;">
 				<p:rowEditor />
 			</p:column>
 		</p:dataTable>
 		
-		<h:inputHidden id="cadClinicaForm" />
-		
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="false">
+			<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		</p:confirmDialog>
 	</h:form>
 </div>
 
-
+<ui:include src="cadastrar-clinica.xhtml"></ui:include>
 
 </ui:composition>
 </html>
