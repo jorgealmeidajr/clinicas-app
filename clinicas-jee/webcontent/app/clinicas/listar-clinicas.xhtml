@@ -96,9 +96,9 @@
 				</p:cellEditor>
 			</p:column>
 			
-			<p:column headerText="Cidade">
+			<p:column headerText="Cidade / Estado">
 				<h:outputText 
-					value="#{clinica.endereco.cidade.nome} / #{clinica.endereco.cidade.estado.nome}" 
+					value="#{clinica.endereco.cidade.nome} / #{clinica.endereco.cidade.estado.sigla}" 
 					rendered="#{clinica.endereco.cidade != null}"/>
 			</p:column>
 			
@@ -137,11 +137,12 @@
 			
 			<p:column headerText="" width="80" resizable="false">
 				<p:commandButton 
-					update="cadClinicaForm" 
+					update="cadClinicaForm"
+					actionListener="#{clinicasController.iniciarEdicao(clinica)}" 
 					oncomplete="PF('cadClinicaDialog').show();" 
 					icon="ui-icon-search"
 					styleClass="btn-table">
-					<f:setPropertyActionListener value="#{clinica}" target="#{clinicasController.entidadeCadastro}" />
+					<!-- <f:setPropertyActionListener value="#{clinica}" target="#{clinicasController.entidadeCadastro}" /> -->
 				</p:commandButton>
 				
 				<p:commandButton 
@@ -153,7 +154,7 @@
 				</p:commandButton>
 			</p:column>
 			
-			<p:column style="width:30px;">
+			<p:column style="width:40px;">
 				<p:rowEditor />
 			</p:column>
 		</p:dataTable>

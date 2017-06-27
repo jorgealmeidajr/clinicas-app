@@ -114,6 +114,17 @@ public class ClinicasController implements Serializable {
 	public void iniciarCadastro() {
 		entidadeCadastro = new Clinica();
 		entidadeCadastro.setEndereco(new EnderecoClinica());
+		estado = null;
+	}
+	
+	public void iniciarEdicao(Clinica clinica) {
+		entidadeCadastro = clinica;
+		
+		estado = clinica.getEndereco().getCidade().getEstado();
+		
+		cidadesCadastro = cidades.stream()
+ 				 				 .filter(c -> c.getEstado().getId().equals(estado.getId()))
+ 				 				 .collect(Collectors.toList());
 	}
 	
 	public void salvar() {
