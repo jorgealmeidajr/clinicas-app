@@ -123,7 +123,7 @@
 			</p:cellEditor>
 		</p:column>
 		
-		<p:column headerText="CPF" width="150" resizable="false">
+		<p:column headerText="CPF" width="130" resizable="false">
 			<p:cellEditor>
 				<f:facet name="output">
 					<h:outputText value="#{m.cpf}" />	
@@ -134,11 +134,15 @@
 			</p:cellEditor>
 		</p:column>
 		
-		<p:column headerText="Especialidade" width="200">
+		<p:column headerText="Especialidade" width="180">
 			<h:outputText value="#{m.especialidade.nome}" />
 		</p:column>
 		
-		<p:column headerText="Telefone" width="150" resizable="false">
+		<p:column headerText="Clínica" width="180">
+			<h:outputText value="#{m.clinica.razaoSocial}" />
+		</p:column>
+		
+		<p:column headerText="Telefone" width="120" resizable="false">
 			<p:cellEditor>
 				<f:facet name="output">
 					<h:outputText value="#{m.telefone}" />	
@@ -149,7 +153,7 @@
 			</p:cellEditor>
 		</p:column>
 		
-		<p:column headerText="" width="100" resizable="false">
+		<p:column headerText="" width="80" resizable="false">
 			<p:commandButton 
 				update="cadMedicoForm" 
 				oncomplete="PF('cadMedicoDialog').show();" 
