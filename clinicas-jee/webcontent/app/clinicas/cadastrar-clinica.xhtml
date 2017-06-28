@@ -89,7 +89,7 @@ function handleDialogSubmit(xhr, status, args) {
 				<span class="label">CEP : </span>
 			</div>
 			<div class="ui-g-10">
-				<p:inputText value="#{clinicasController.entidadeCadastro.endereco.cep}" />
+				<p:inputMask value="#{clinicasController.entidadeCadastro.endereco.cep}" mask="99.999-999" />
 			</div>
 		</div>
 		
@@ -114,7 +114,9 @@ function handleDialogSubmit(xhr, status, args) {
 				<span class="label">Número : </span>
 			</div>
 			<div class="ui-g-4">
-				<p:inputText value="#{clinicasController.entidadeCadastro.endereco.numero}" />
+				<p:inputMask value="#{clinicasController.entidadeCadastro.endereco.numero}"
+				mask="9?99999"
+   			maxlength="6" />
 			</div>
 			
 			<div class="ui-g-2">

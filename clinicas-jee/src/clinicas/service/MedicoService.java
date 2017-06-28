@@ -45,7 +45,11 @@ public class MedicoService {
 		}
 		
 		if(parametrosBusca.getEstadoCrm().getId() != null) {
-			predicates.add(m -> m.getEstadoCrm().getId().equals(parametrosBusca.getEstadoCrm().getId()));
+			predicates.add(m -> {
+				if (m.getEstadoCrm() == null) return false;
+				
+				return m.getEstadoCrm().getId().equals(parametrosBusca.getEstadoCrm().getId());
+			});
 		}
 	        
 		return predicates.stream().reduce(w -> true, Predicate::and);
