@@ -98,6 +98,8 @@
 			<p:graphicImage value="/images/medicos?id=#{medico.id}" height="150" cache="false" styleClass="table-image" />
 			<b>#{medico.nome}</b><br />
 			#{medico.especialidade.nome}<br />
+			Clínica: #{medico.clinica.razaoSocial}<br />
+			Telefone: #{medico.clinica.telefone}
 		</div>
   </p:dataGrid>
   
