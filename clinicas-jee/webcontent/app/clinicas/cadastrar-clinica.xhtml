@@ -74,8 +74,11 @@ function handleDialogSubmit(xhr, status, args) {
 			<div class="ui-g-4">
 				<span class="label">Atende ao SUS : </span>
 			</div>
-			<div class="ui-g-8">
-				<p:inputSwitch value="#{clinicasController.entidadeCadastro.atendeSus}" onLabel="Sim" offLabel="Não" />
+			<div class="ui-g-4">
+				<p:selectOneRadio value="#{clinicasController.entidadeCadastro.atendeSus}">
+            <f:selectItem itemLabel="Sim" itemValue="true" />
+            <f:selectItem itemLabel="Não" itemValue="false" />
+        </p:selectOneRadio>
 			</div>
 		</div>
 		

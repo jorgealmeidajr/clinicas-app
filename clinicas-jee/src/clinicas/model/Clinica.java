@@ -35,7 +35,7 @@ public class Clinica implements Serializable {
 	private String telefone;
 	
 	@Column(name = "atende_sus")
-	private Boolean atendeSus;
+	private boolean atendeSus;
 	
 	@JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco", nullable = false)
     @ManyToOne(optional = false)
@@ -81,11 +81,11 @@ public class Clinica implements Serializable {
 		this.cnpj = cnpj;
 	}
 
-	public Boolean getAtendeSus() {
+	public boolean getAtendeSus() {
 		return atendeSus;
 	}
 
-	public void setAtendeSus(Boolean atendeSus) {
+	public void setAtendeSus(boolean atendeSus) {
 		this.atendeSus = atendeSus;
 	}
 

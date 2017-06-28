@@ -48,7 +48,7 @@
 		
 		<!-- Formulario que sera renderizado quando o usuario logou -->
 		<h:form rendered="#{loginController.usuarioLogado}" prependId="false" style="display: inline;">
-			<span style="float: left; color: white;">
+			<span style="float: left; color: white; display: none;">
 				Usuário logado: <b><h:outputText value="#{loginController.usuario.nome}" /></b>
 				<br />
 				Data/Hora do último login: <b>...</b>

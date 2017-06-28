@@ -114,6 +114,7 @@ public class ClinicasController implements Serializable {
 	public void iniciarCadastro() {
 		entidadeCadastro = new Clinica();
 		entidadeCadastro.setEndereco(new EnderecoClinica());
+		entidadeCadastro.setAtendeSus(false);
 		estado = null;
 	}
 	
