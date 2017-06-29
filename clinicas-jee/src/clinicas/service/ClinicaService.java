@@ -38,7 +38,10 @@ public class ClinicaService {
 		}
 
 		if (!"".equals(parametrosBusca.getCnpj().trim())) {
-			predicates.add(m -> m.getCnpj().contains(parametrosBusca.getCnpj().trim()));
+			predicates.add(m -> {
+				if(m.getCnpj() == null) return false;
+				return m.getCnpj().contains(parametrosBusca.getCnpj().trim());
+			});
 		}
 
 		if (parametrosBusca.getEndereco().getCidade().getId() != null) {

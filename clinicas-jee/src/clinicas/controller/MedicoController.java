@@ -27,6 +27,7 @@ import clinicas.model.Especialidade;
 import clinicas.model.Estado;
 import clinicas.model.Medico;
 import clinicas.service.MedicoService;
+import clinicas.utils.CNPUtils;
 
 @Named
 @ViewScoped
@@ -135,8 +136,23 @@ public class MedicoController implements Serializable {
 				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de validação", "O campo Clínica é obrigatório."));
 		}
 		
+		String cpf = entidadeCadastro.getCpf().replaceAll("[.-]", "");
+		if(!"".equals(cpf.trim()) && !CNPUtils.isValidCPF(cpf)) {
+			retorno = false;
+			context.addMessage(null, 
+				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de validação", "O CPF informado é inválido."));
+		}
+		
+		if(service.existeMedicoComCPF(entidadeCadastro.getCpf())) {
+			retorno = false;
+			context.addMessage(null, 
+				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de validação", "O CPF informado já foi cadastrado."));
+		}
+		
 		if (!retorno) {
 			estadoCadastro = "erro_validacao";
+		} else {
+			estadoCadastro = "";
 		}
 		
 		return retorno;
@@ -152,12 +168,14 @@ public class MedicoController implements Serializable {
 
 	public void atualizar() {
 		if (!verificarCadastro()) return;
+		
 		FacesContext context = FacesContext.getCurrentInstance();
 		
 		try {
 			service.atualizar(entidadeCadastro);
 			context.addMessage(null, new FacesMessage("Médico atualizado com sucesso."));
 			
+			estadoCadastro = "";
 		} catch (Exception e) {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro no cadastro", e.getMessage()));
 		}

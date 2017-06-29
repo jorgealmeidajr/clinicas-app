@@ -172,8 +172,8 @@
 		      	actionListener="#{medicoController.atualizar}" 
 		      	icon="ui-icon-disk"
 		      	rendered="#{medicoController.entidadeCadastro.id != null}"
-		      	oncomplete="PF('cadMedicoDialog').hide();"
-		      	update="medicos"
+		      	oncomplete="handleDialogSubmit(xhr, status, args)"		      	
+		      	update="medicos, cadMedicoForm"
 		      	styleClass="btn" />
 		  	</div>
 		  </div>

@@ -41,7 +41,11 @@ public class MedicoService {
 		}
 		
 		if (!"".equals(parametrosBusca.getCpf().trim())) {
-			predicates.add(m -> m.getCpf().contains(parametrosBusca.getCpf().trim()));
+			predicates.add(m -> {
+				if(m.getCpf() == null) return false;
+				
+				return m.getCpf().contains(parametrosBusca.getCpf().trim());
+			});
 		}
 		
 		if(parametrosBusca.getEstadoCrm().getId() != null) {
@@ -82,6 +86,16 @@ public class MedicoService {
 //		}
 	        
 		return predicates.stream().reduce(w -> true, Predicate::and);
+	}
+	
+	public boolean existeMedicoComCPF(String cpf) {
+		return dao.listar()
+				  .stream()
+				  .filter((m) -> {
+					if (m.getCpf() != null && !"".equals(m.getCpf())) return m.getCpf().equals(cpf);
+					return false;
+				  })
+				  .count() > 0;
 	}
 	
 	@Transactional
