@@ -35,7 +35,10 @@ public class Clinica implements Serializable {
 	private String telefone;
 	
 	@Column(name = "atende_sus")
-	private boolean atendeSus;
+	private Boolean atendeSus;
+	
+	@Column(name = "valor_consulta")
+	private Double valorConsulta;
 	
 	@JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco", nullable = false)
     @ManyToOne(optional = false)
@@ -81,12 +84,20 @@ public class Clinica implements Serializable {
 		this.cnpj = cnpj;
 	}
 
-	public boolean getAtendeSus() {
+	public Boolean getAtendeSus() {
 		return atendeSus;
 	}
 
-	public void setAtendeSus(boolean atendeSus) {
+	public void setAtendeSus(Boolean atendeSus) {
 		this.atendeSus = atendeSus;
+	}
+
+	public Double getValorConsulta() {
+		return valorConsulta;
+	}
+
+	public void setValorConsulta(Double valorConsulta) {
+		this.valorConsulta = valorConsulta;
 	}
 
 	public EnderecoClinica getEndereco() {

@@ -22,6 +22,7 @@ import clinicas.model.Clinica;
 import clinicas.model.EnderecoClinica;
 import clinicas.model.Estado;
 import clinicas.service.ClinicaService;
+import clinicas.utils.CNPUtils;
 
 @Named
 @ViewScoped
@@ -183,8 +184,24 @@ public class ClinicasController implements Serializable {
 //				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de validação", "O campo Especialidade é obrigatório."));
 //		}
 		
+		String cnpj = entidadeCadastro.getCnpj().replaceAll("[.-/-]", "");
+		
+		if(!"".equals(cnpj.trim()) && !CNPUtils.isValidCNPJ(cnpj)) {
+			retorno = false;
+			context.addMessage(null, 
+				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de validação", "O CNPJ informado é inválido."));
+		}
+		
+		if(service.existeClinicaComCNPJ(entidadeCadastro.getCnpj())) {
+			retorno = false;
+			context.addMessage(null, 
+				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de validação", "O CNPJ informado já foi cadastrado."));
+		}
+		
 		if (!retorno) {
 			estadoCadastro = "erro_validacao";
+		} else {
+			estadoCadastro = "";
 		}
 		
 		return retorno;

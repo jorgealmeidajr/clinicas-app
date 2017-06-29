@@ -82,6 +82,19 @@ function handleDialogSubmit(xhr, status, args) {
 			</div>
 		</div>
 		
+		<div class="ui-g">
+			<div class="ui-g-4">
+				<span class="label">Valor da Consulta : </span>
+			</div>
+			<div class="ui-g-4">
+				<p:inputNumber 
+					value="#{clinicasController.entidadeCadastro.valorConsulta}" 
+					symbol="R$ "   
+					decimalSeparator="," thousandSeparator=".">
+				</p:inputNumber>
+			</div>
+		</div>
+		
 		<h2>Dados do Endereço da Clínica</h2>
 		
 		<div class="ui-g">
@@ -167,20 +180,29 @@ function handleDialogSubmit(xhr, status, args) {
 
 		<div class="ui-g">
 			<div class="ui-g-12">
-				<p:commandButton value="Cancelar" icon="ui-icon-closethick"
-					onclick="PF('cadClinicaDialog').hide();" immediate="true"
+				<p:commandButton 
+					value="Cancelar" 
+					icon="ui-icon-closethick"
+					onclick="PF('cadClinicaDialog').hide();" 
+					immediate="true"
 					styleClass="btn btn-cancelar" />
 
-				<p:commandButton value="Salvar"
-					actionListener="#{clinicasController.salvar}" icon="ui-icon-disk"
+				<p:commandButton 
+					value="Salvar"
+					actionListener="#{clinicasController.salvar}" 
+					icon="ui-icon-disk"
 					rendered="#{clinicasController.entidadeCadastro.id == null}"
 					oncomplete="handleDialogSubmit(xhr, status, args)"
-					update="clinicas, cadClinicaForm" styleClass="btn" />
+					update="clinicas, cadClinicaForm" 
+					styleClass="btn" />
 
-				<p:commandButton value="Atualizar"
-					actionListener="#{clinicasController.atualizar}" icon="ui-icon-disk"
+				<p:commandButton 
+					value="Atualizar"
+					actionListener="#{clinicasController.atualizar}" 
+					icon="ui-icon-disk"
 					rendered="#{clinicasController.entidadeCadastro.id != null}"
-					oncomplete="PF('cadClinicaDialog').hide();" update="clinicas"
+					oncomplete="handleDialogSubmit(xhr, status, args)"
+					update="clinicas, cadClinicaForm"
 					styleClass="btn" />
 			</div>
 		</div>
