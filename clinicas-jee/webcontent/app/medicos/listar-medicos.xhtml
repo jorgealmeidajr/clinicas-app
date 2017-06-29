@@ -156,10 +156,11 @@
 		<p:column headerText="" width="80" resizable="false">
 			<p:commandButton 
 				update="cadMedicoForm" 
+				actionListener="#{medicoController.iniciarEdicao(m)}"
 				oncomplete="PF('cadMedicoDialog').show();" 
 				icon="ui-icon-search"
 				styleClass="btn-table">
-				<f:setPropertyActionListener value="#{m}" target="#{medicoController.entidadeCadastro}" />
+				<!-- <f:setPropertyActionListener value="#{m}" target="#{medicoController.entidadeCadastro}" /> -->
 			</p:commandButton>
 			
 			<p:commandButton 

@@ -43,6 +43,21 @@ public class Clinica implements Serializable {
 	@JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco", nullable = false)
     @ManyToOne(optional = false)
     private EnderecoClinica endereco;
+	
+	public Clinica() {
+		
+	}
+	
+	public Clinica(Clinica clone) {
+		this.id = clone.getId();
+		this.razaoSocial = clone.getRazaoSocial();
+		this.cnpj = clone.getCnpj();
+		this.email = clone.getEmail();
+		this.telefone = clone.getTelefone();
+		this.atendeSus = clone.getAtendeSus();
+		this.valorConsulta = clone.getValorConsulta();
+		this.endereco = clone.getEndereco();
+	}
 
 	public Integer getId() {
 		return id;

@@ -56,11 +56,13 @@ public class ClinicaService {
 		return predicates.stream().reduce(w -> true, Predicate::and);
 	}
 	
-	public boolean existeClinicaComCNPJ(String cnpj) {
+	public boolean existeClinicaComCNPJ(String cnpj, Integer idClinica) {
 		return dao.listar()
 				  .stream()
-				  .filter((m) -> {
-					if (m.getCnpj() != null && !"".equals(m.getCnpj())) return m.getCnpj().equals(cnpj);
+				  .filter((cli) -> {
+					if (cli.getCnpj() != null && !"".equals(cli.getCnpj())) {
+						return cli.getCnpj().equals(cnpj) && cli.getId() != idClinica;
+					}
 					return false;
 				  })
 				  .count() > 0;

@@ -88,11 +88,13 @@ public class MedicoService {
 		return predicates.stream().reduce(w -> true, Predicate::and);
 	}
 	
-	public boolean existeMedicoComCPF(String cpf) {
+	public boolean existeMedicoComCPF(String cpf, Integer idMedico) {
 		return dao.listar()
 				  .stream()
 				  .filter((m) -> {
-					if (m.getCpf() != null && !"".equals(m.getCpf())) return m.getCpf().equals(cpf);
+					if (m.getCpf() != null && !"".equals(m.getCpf())) {
+						return m.getCpf().equals(cpf) && m.getId() != idMedico;
+					}
 					return false;
 				  })
 				  .count() > 0;

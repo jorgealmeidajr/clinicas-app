@@ -120,7 +120,7 @@ public class ClinicasController implements Serializable {
 	}
 	
 	public void iniciarEdicao(Clinica clinica) {
-		entidadeCadastro = clinica;
+		entidadeCadastro = new Clinica(clinica);
 		
 		if (clinica.getEndereco().getCidade() != null) {
 			estado = clinica.getEndereco().getCidade().getEstado();
@@ -192,7 +192,7 @@ public class ClinicasController implements Serializable {
 				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de validação", "O CNPJ informado é inválido."));
 		}
 		
-		if(service.existeClinicaComCNPJ(entidadeCadastro.getCnpj())) {
+		if(service.existeClinicaComCNPJ(entidadeCadastro.getCnpj(), entidadeCadastro.getId())) {
 			retorno = false;
 			context.addMessage(null, 
 				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de validação", "O CNPJ informado já foi cadastrado."));

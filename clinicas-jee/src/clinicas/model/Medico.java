@@ -58,6 +58,23 @@ public class Medico implements Serializable {
 	@JoinColumn(name = "id_clinica", referencedColumnName = "id_clinica")
 	private Clinica clinica;
 
+	public Medico() {
+		
+	}
+	
+	public Medico(Medico medico) {
+		this.id = medico.getId();
+		this.nome = medico.getNome();
+		this.cpf = medico.getCpf();
+		this.dataNascimento = medico.getDataNascimento();
+		this.foto = medico.getFoto();
+		this.telefone = medico.getTelefone();
+		this.numeroCrm = medico.getNumeroCrm();
+		this.estadoCrm = medico.getEstadoCrm();
+		this.especialidade = medico.getEspecialidade();
+		this.clinica = medico.getClinica();
+	}
+
 	public Integer getId() {
 		return id;
 	}

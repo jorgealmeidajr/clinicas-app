@@ -98,6 +98,11 @@ public class MedicoController implements Serializable {
 		entidadeCadastro.setEstadoCrm(new Estado());
 	}
 	
+	public void iniciarEdicao(Medico medico) {
+		entidadeCadastro = new Medico(medico);
+		estadoCadastro = "";
+	}
+	
 	public void salvar() {
 		if (!verificarCadastro()) return;
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -143,7 +148,7 @@ public class MedicoController implements Serializable {
 				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de validação", "O CPF informado é inválido."));
 		}
 		
-		if(service.existeMedicoComCPF(entidadeCadastro.getCpf())) {
+		if(service.existeMedicoComCPF(entidadeCadastro.getCpf(), entidadeCadastro.getId())) {
 			retorno = false;
 			context.addMessage(null, 
 				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de validação", "O CPF informado já foi cadastrado."));
