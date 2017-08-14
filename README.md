@@ -10,7 +10,7 @@ A aplicação foi implementada com Java 8 e roda em um servidor de aplicação J
 
 O projeto deve ser aberto no Eclipse, ele é um Dynamic Web Project.
 
-O banco de dados usado foi o MySQL. A imagem abaixo representa o banco implementado com suas tabelas e seus relacionamentos.
+O banco de dados usado foi o MySQL. Para criar o banco de dados use o arquivo de dump que possui a estrutura e alguns dados de teste e que foi colocado no diretorio **db/mysql** disponivel nesse repositorio. A imagem abaixo representa o banco implementado com suas tabelas e seus relacionamentos.
 
 ![clinicas-app-v01-db](https://user-images.githubusercontent.com/6424524/29288074-da7d1750-810d-11e7-9104-6d1292b909f1.png)
 
