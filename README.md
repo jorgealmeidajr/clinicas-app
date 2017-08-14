@@ -17,13 +17,21 @@ O banco de dados usado foi o MySQL. A imagem abaixo representa o banco implement
 ## Screenshots da aplicação
 A imagem abaixo mostra a pagina inicial da aplicacao.
 
+![clinicas-app-v01-index](https://user-images.githubusercontent.com/6424524/29288211-500854a8-810e-11e7-935a-0e6268a68b40.png)
+
 Na página inicial é possível fazer uma busca de todos os médicos cadastrados na aplicação. Essa funcionalidade fica pública e não necessita de autenticação. È possível filtrar a busca pelo nome do médico, especialidade e cidade onde o médico atende. Se o usuário não estiver cadastrado no sistema, ele pode ir em no link "Quero me cadastrar" situado no topo à direita.
 
 A imagem abaixo mostra o formulario de edicao de dados do usuario.
 
+![clinicas-app-v01-usuario](https://user-images.githubusercontent.com/6424524/29288239-6a66afac-810e-11e7-86bd-114f342a9b29.png)
+
 A imagem abaixo mostra a tela de listagem de medicos.
 
+![clinicas-app-v01-medicos](https://user-images.githubusercontent.com/6424524/29288257-77e3daf6-810e-11e7-868d-da2d57516295.png)
+
 A imagem abaixo mostra a tela de listagem de clinicas.
+
+![clinicas-app-v01-clinicas](https://user-images.githubusercontent.com/6424524/29288278-892e51ce-810e-11e7-9a18-7c1419f7177f.png)
 
 ## Configuração do Wildfly
 Os passos para as configurações do servidor Wildfly são os seguintes:
