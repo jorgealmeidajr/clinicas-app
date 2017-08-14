@@ -1,5 +1,9 @@
-/clinicas-jee/.settings/
+# por enquanto eu preciso desses arquivos
+# o projeto precisa rodar no Eclipse
+# remover isso quando migrar para o Maven/Gradle
+# /clinicas-jee/.settings/
+# /clinicas-jee/.classpath
+# /clinicas-jee/.project
+
 /clinicas-jee/build/
-/clinicas-jee/.classpath
-/clinicas-jee/.project
 /clinicas-jee/.tern-project
