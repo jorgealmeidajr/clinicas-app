@@ -1,18 +1,20 @@
-#Aplicativo Gerenciador de Clínicas
+# Aplicativo Gerenciador de Clínicas
 
-##Introdução
+## Introdução
 Este sistema foi desenvolvido como trabalho de conclusão na disciplina **ST SADS 2016/1 N1 - Programação para web**.
 
 Este aplicativo é um trabalho feito no SENAI SC Florianópolis, na terceira fase do curso de Análise de Sistemas(2017/1), na disciplina de **Programação web** ministrada pelo professor **Paulo Roberto Bueno**.
 
-##Arquitetura da aplicação
+## Arquitetura da aplicação
 A aplicação foi implementada com Java 8 e roda em um servidor de aplicação JEE7 (WildFly Full 10.0.0.Final). As principais tecnologias usadas no frontend foram JSF, Facelets e Primefaces 6.1. As principais tecnologias usadas no backend foram o JPA e o CDI. A aplicação é uma SPA em que temos apenas uma página index que fica atualizando seu conteúdo de acordo com os eventos iniciados pelo usuário.
 
 O projeto deve ser aberto no Eclipse, ele é um Dynamic Web Project.
 
-O banco de dados usado foi o MySQL. A imagem abaixo representa as tabelas e seus relacionamentos.
+O banco de dados usado foi o MySQL. A imagem abaixo representa o banco implementado com suas tabelas e seus relacionamentos.
 
-##Screenshots da aplicação
+![clinicas-app-v01-db](https://user-images.githubusercontent.com/6424524/29288074-da7d1750-810d-11e7-9104-6d1292b909f1.png)
+
+## Screenshots da aplicação
 A imagem abaixo mostra a pagina inicial da aplicacao.
 
 Na página inicial é possível fazer uma busca de todos os médicos cadastrados na aplicação. Essa funcionalidade fica pública e não necessita de autenticação. È possível filtrar a busca pelo nome do médico, especialidade e cidade onde o médico atende. Se o usuário não estiver cadastrado no sistema, ele pode ir em no link "Quero me cadastrar" situado no topo à direita.
@@ -23,7 +25,7 @@ A imagem abaixo mostra a tela de listagem de medicos.
 
 A imagem abaixo mostra a tela de listagem de clinicas.
 
-##Configuração do Wildfly
+## Configuração do Wildfly
 Os passos para as configurações do servidor Wildfly são os seguintes:
 
 1 – Acesse o diretório $WILDFLY_HOME/modules/system/layers/base/com.
@@ -84,7 +86,7 @@ ou
 </driver>
 ```
 
-##Melhorias/Correções a serem implementadas
+## Melhorias/Correções a serem implementadas
 Se eu estiver com a página aberta, reinicio o servidor e não dou refresh no browser, então ocorre uma exceção:
 javax.faces.application.ViewExpiredException: viewId:/index.xhtml - A exibição de /index.xhtml não pôde ser restaurada. 
 O problema é que nenhuma mensagem aparece para o usuário e a aplicação não funciona até dar um refresh.
