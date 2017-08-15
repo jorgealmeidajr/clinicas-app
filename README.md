@@ -113,3 +113,7 @@ Hoje só posso vincular uma clinica a um medico. Preciso criar uma funcionalidad
 Ficou faltando implementar uma rotina que busque o endereco de acordo com o CEP no momento do cadastro de uma clinica.
 
 Ficou faltando criar perfis que restrinjam o acesso aos recursos na aplicacao. Hoje tudo é visto, basta se autenticar.
+
+Ficou faltando criar uma tela de agendamento. Nessa tela eu poderia gerenciar os horarios das consultas de um medico.
+
+Ficou faltando colocar suporte ao sort, paginacao e um evento ajax filtrando os registros sem precisar clicar no botao de pesquisar.
